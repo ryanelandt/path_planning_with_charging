@@ -31,7 +31,6 @@ class IdCity {
   bool operator!=(const IdCity& other) const { return !(*this == other); }
   bool operator<(const IdCity& other) const { return id_ < other.id_; }
 
-  void PrintCity() const { cout << airports[id_].name; }  // TODO: fix global variable use
   int id() const { return id_; }
 
  private:
@@ -62,8 +61,6 @@ class StateAircraft {
     if (id_city_ == other.id_city_ && battery_level_hours_ < other.battery_level_hours_) { return true; }
     return false;
   }
-
-  void PrintCity() const { id_city_.PrintCity(); }
 
   IdCity id_city() const { return id_city_; }
   double battery_level_hours() const { return battery_level_hours_; }
@@ -163,15 +160,18 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
     throw runtime_error("City " + name + " not found");
   }
 
+  void PrintCity(const IdCity& id_city) const { cout << getAirport(id_city).name; }
+  void PrintCity(const StateAircraft& state) const { PrintCity(state.id_city()); }
+
   // Prints out the path
   void PrintPath(const vector<StateAircraft>& v_path) const {
     IdCity id_src = v_path[0].id_city();
     IdCity id_dst = v_path[v_path.size() - 1].id_city();
 
     cout << endl;
-    id_src.PrintCity(); cout << ", " << endl;     // Print first city
+    PrintCity(id_src); cout << ", " << endl;      // Print first city
     PrintChargingCitiesAndTimes(v_path, id_dst);  // Print out each city the plane charges at
-    id_dst.PrintCity();                           // Print last city
+    PrintCity(id_dst);                            // Print last city
     cout << endl;
   }
 
@@ -187,7 +187,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
 
     // Prints out the change time
     auto fn_print_charge_time = [this](vector<StateAircraft> v_path, int i, int j) {
-      v_path[i].PrintCity();
+      PrintCity(v_path[i]);
       double charge_time_hours = CalcChargeTime(v_path[i], v_path[j]);
       cout << ", " << setprecision(16) << charge_time_hours << "," << endl;
     };
