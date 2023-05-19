@@ -1,5 +1,14 @@
 #pragma once
 
+#include <functional>
+#include <map>
+#include <queue>
+#include <set>
+#include <utility>
+#include <vector>
+#include <limits>
+
+
 namespace std {
 
 /// Graph class for a directed graph with vertices of type VertexType
