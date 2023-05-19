@@ -6,12 +6,10 @@
 #include <regex>
 
 
-
 static bool USE_FAST_TEST = true;
 
 
 namespace std {
-
 
 TEST(GraphCheck, RegressionTestExact) {
   const auto airport_graph = FlightPlannerExact(airports);
@@ -23,28 +21,28 @@ TEST(GraphCheck, RegressionTestExact) {
 TEST(GraphCheck, RegressionTestGrid_8) {
   const auto airport_graph = FlightPlannerGrid(airports, 8);
   ASSERT_EQ(airport_graph.numAirports(), 303);
-  ASSERT_EQ(airport_graph.getNumVertices(), 2424);  
+  ASSERT_EQ(airport_graph.getNumVertices(), 2424);
   ASSERT_EQ(airport_graph.getNumEdges(), 19328);
 }
 
 TEST(GraphCheck, RegressionTestGrid_32) {
   const auto airport_graph = FlightPlannerGrid(airports, 32);
   ASSERT_EQ(airport_graph.numAirports(), 303);
-  ASSERT_EQ(airport_graph.getNumVertices(), 9696);  
+  ASSERT_EQ(airport_graph.getNumVertices(), 9696);
   ASSERT_EQ(airport_graph.getNumEdges(), 77212);
 }
 
 TEST(GraphCheck, RegressionTestGrid_128) {
   const auto airport_graph = FlightPlannerGrid(airports, 128);
   ASSERT_EQ(airport_graph.numAirports(), 303);
-  ASSERT_EQ(airport_graph.getNumVertices(), 38784);  
+  ASSERT_EQ(airport_graph.getNumVertices(), 38784);
   ASSERT_EQ(airport_graph.getNumEdges(), 309080);
 }
 
 TEST(GraphCheck, RegressionTestGrid_512) {
   const auto airport_graph = FlightPlannerGrid(airports, 512);
   ASSERT_EQ(airport_graph.numAirports(), 303);
-  ASSERT_EQ(airport_graph.getNumVertices(), 155136);  
+  ASSERT_EQ(airport_graph.getNumVertices(), 155136);
   ASSERT_EQ(airport_graph.getNumEdges(), 1236666);
 }
 
@@ -87,7 +85,7 @@ class FlightPathTester : public ::testing::Test {
     const string escape_city_name_1 = escapeCityName(cityPair.first);
     const string escape_city_name_2 = escapeCityName(cityPair.second);
 
-    // TODO: detect operating system and use the appropriate checker
+    // TODO(ryanelandt): detect operating system and use the appropriate checker
     std::string command = "../checker_linux \"$(./flight_planner " +
                           escape_city_name_1 + " " + escape_city_name_2 + ")\"";
     return runTestCommand(command);
@@ -160,8 +158,6 @@ class FlightPathTester : public ::testing::Test {
   const string reference_success_string_ = "Reference result: Success, cost was ";
   const string candidate_success_string_ = "Candidate result: Success, cost was ";
 };
-
-
 
 
 

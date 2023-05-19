@@ -14,12 +14,11 @@
 #include <utility>
 #include <vector>
 
-
 #include "airports.h"
 #include "graph_directed.h"
 
-namespace std {
 
+namespace std {
 
 /// Represents the ID of a city in the airport list
 class IdCity {
@@ -101,7 +100,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
 
   /// Returns the airport with the given IdCity
   const row& getAirport(const IdCity id) const { return airports()[id.id()]; }
- 
+
  protected:
   /// Adds charging edges for each city in the graph
   void AddEdgesCharge() {
@@ -205,7 +204,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
 
   // Returns the latitude and longitude of the city in radians
   pair<double, double> getLatLonRadians(IdCity id_city) const {
-    const row& city = getAirport(id_city);  
+    const row& city = getAirport(id_city);
     double lat_rad = city.lat * M_PI / 180;
     double lon_rad = city.lon * M_PI / 180;
     return make_pair(lat_rad, lon_rad);
@@ -229,7 +228,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   double CalcChargeTime(const StateAircraft& state_lo, const StateAircraft& state_hi) const {
     const IdCity& id = state_lo.id_city();
     assert(id == state_hi.id_city());  // Charging needs to happen at the same city
-    
+
     const double flight_time_per_charge_hr = CalcChargeRateKmPerHr(id) / SpeedKmPerHr();
     return state_lo.CalcBatteryDelta(state_hi) / flight_time_per_charge_hr;
   }
