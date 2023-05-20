@@ -203,10 +203,10 @@ Finding the discrete battery level closest to the true battery level without goi
 ## Graph size + solution quality
 
 The exact graph size is fixed, and is comparable to an approximate graph when $8 ≤ n ≤ 32$ as shown in the table below.
-For the graph that uses a approximate of $n$ battery levels, the flight time decreases as $n$ increases.
-The decreasing flying times approach the flying time of the exact solution.
+For the graph that uses a approximate of $n$ battery levels, the total time decreases as $n$ increases.
+The decreasing total times approach the total time of the exact solution.
 
-| Battery Levels | Vertex # | Edge #    | Drive Time*|
+| Battery Levels | Vertex # | Edge #    | Total Time*|
 |----------------|----------|-----------|------------|
 | n = 8          |  2,424   | 19,328    | 68.8800    |
 | n = 32         |  9,696   | 77,212    | 67.1495    |

@@ -13,37 +13,37 @@ namespace std {
 
 TEST(GraphCheck, RegressionTestExact) {
   const auto airport_graph = FlightPlannerExact(airports);
-  ASSERT_EQ(airport_graph.numAirports(), 303);
-  ASSERT_EQ(airport_graph.getNumVertices(), 9918);
-  ASSERT_EQ(airport_graph.getNumEdges(), 28542);
+  ASSERT_EQ(airport_graph.NumAirports(), 303);
+  ASSERT_EQ(airport_graph.NumVertices(), 9918);
+  ASSERT_EQ(airport_graph.NumEdges(), 28542);
 }
 
 TEST(GraphCheck, RegressionTestGrid_8) {
   const auto airport_graph = FlightPlannerGrid(airports, 8);
-  ASSERT_EQ(airport_graph.numAirports(), 303);
-  ASSERT_EQ(airport_graph.getNumVertices(), 2424);
-  ASSERT_EQ(airport_graph.getNumEdges(), 19328);
+  ASSERT_EQ(airport_graph.NumAirports(), 303);
+  ASSERT_EQ(airport_graph.NumVertices(), 2424);
+  ASSERT_EQ(airport_graph.NumEdges(), 19328);
 }
 
 TEST(GraphCheck, RegressionTestGrid_32) {
   const auto airport_graph = FlightPlannerGrid(airports, 32);
-  ASSERT_EQ(airport_graph.numAirports(), 303);
-  ASSERT_EQ(airport_graph.getNumVertices(), 9696);
-  ASSERT_EQ(airport_graph.getNumEdges(), 77212);
+  ASSERT_EQ(airport_graph.NumAirports(), 303);
+  ASSERT_EQ(airport_graph.NumVertices(), 9696);
+  ASSERT_EQ(airport_graph.NumEdges(), 77212);
 }
 
 TEST(GraphCheck, RegressionTestGrid_128) {
   const auto airport_graph = FlightPlannerGrid(airports, 128);
-  ASSERT_EQ(airport_graph.numAirports(), 303);
-  ASSERT_EQ(airport_graph.getNumVertices(), 38784);
-  ASSERT_EQ(airport_graph.getNumEdges(), 309080);
+  ASSERT_EQ(airport_graph.NumAirports(), 303);
+  ASSERT_EQ(airport_graph.NumVertices(), 38784);
+  ASSERT_EQ(airport_graph.NumEdges(), 309080);
 }
 
 TEST(GraphCheck, RegressionTestGrid_512) {
   const auto airport_graph = FlightPlannerGrid(airports, 512);
-  ASSERT_EQ(airport_graph.numAirports(), 303);
-  ASSERT_EQ(airport_graph.getNumVertices(), 155136);
-  ASSERT_EQ(airport_graph.getNumEdges(), 1236666);
+  ASSERT_EQ(airport_graph.NumAirports(), 303);
+  ASSERT_EQ(airport_graph.NumVertices(), 155136);
+  ASSERT_EQ(airport_graph.NumEdges(), 1236666);
 }
 
 

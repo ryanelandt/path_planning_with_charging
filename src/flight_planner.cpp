@@ -6,13 +6,13 @@ namespace std {
 // FlightPlannerBase
 
 pair<vector<StateAircraft>, double> FlightPlannerBase::SolvePath(const char* char_src, const char* char_dst) const {
-  IdCity id_src = GetIdCityFromName(char_src);
-  IdCity id_dst = GetIdCityFromName(char_dst);
+  IdCity id_src = GetIdCity(char_src);
+  IdCity id_dst = GetIdCity(char_dst);
 
   // Calculate shortest distance from vertex src to every other vertex
   StateAircraft src{id_src, MaxBatteryHours()};  // Source city with fully battery
   StateAircraft dst{id_dst, MinBatteryHours()};  // Destination city
-  return calcMinCostPathDijkstra(src, dst);
+  return CalcMinCostPathDijkstra(src, dst);
 }
 
 void FlightPlannerBase::AddEdgesCharge() {
@@ -23,7 +23,7 @@ void FlightPlannerBase::AddEdgesCharge() {
   }
 
   // Add charging edges for each city
-  for (int i = 0; i < numAirports(); i++) {
+  for (int i = 0; i < NumAirports(); i++) {
     AddEdgesCharge(IdCity{i}, map_id_city_to_vertex_states.at(IdCity{i}));
   }
 }
@@ -42,17 +42,17 @@ void FlightPlannerBase::AddEdgesCharge(const IdCity id_city, const set<StateAirc
       double charge_time = CalcChargeTime(vertex_state, next_vertex_state);
 
       // Represents charging edge
-      addDirectedEdge(vertex_state, next_vertex_state, charge_time);
+      AddDirectedEdge(vertex_state, next_vertex_state, charge_time);
 
       // Represents free transition to zero battery level for easier graph search
-      addDirectedEdge(next_vertex_state, *vertex_states.begin(), 0.0);
+      AddDirectedEdge(next_vertex_state, *vertex_states.begin(), 0.0);
     }
   }
 }
 
-IdCity FlightPlannerBase::GetIdCityFromName(const string& name) const {
-  for (int i = 0; i < numAirports(); i++) {
-    if (getAirport(IdCity{i}).name == name) {
+IdCity FlightPlannerBase::GetIdCity(const string& name) const {
+  for (int i = 0; i < NumAirports(); i++) {
+    if (GetAirport(IdCity{i}).name == name) {
       return IdCity{i};
     }
   }
@@ -97,8 +97,8 @@ void FlightPlannerBase::PrintChargingCitiesAndTimes(const vector<StateAircraft>&
   }
 }
 
-pair<double, double> FlightPlannerBase::getLatLonRadians(IdCity id_city) const {
-  const row& city = getAirport(id_city);
+pair<double, double> FlightPlannerBase::GetLatLonRadians(IdCity id_city) const {
+  const row& city = GetAirport(id_city);
   double lat_rad = city.lat * M_PI / 180;
   double lon_rad = city.lon * M_PI / 180;
   return make_pair(lat_rad, lon_rad);
@@ -108,8 +108,8 @@ double FlightPlannerBase::CalcDistKm(IdCity src, IdCity dst) const {
   double lat1r, lon1r, lat2r, lon2r, u, v;
 
   // Get the latitude and longitude of the source and destination cities in radians
-  tie(lat1r, lon1r) = getLatLonRadians(src);
-  tie(lat2r, lon2r) = getLatLonRadians(dst);
+  tie(lat1r, lon1r) = GetLatLonRadians(src);
+  tie(lat2r, lon2r) = GetLatLonRadians(dst);
 
   // Copilot auto-generated code
   u = sin((lat2r - lat1r) / 2);
@@ -129,8 +129,8 @@ double FlightPlannerBase::CalcChargeTime(const StateAircraft& state_lo, const St
 // FlightPlannerExact
 
 void FlightPlannerExact::AddEdgesFlightsExact() {
-  for (int i = 0; i < numAirports(); i++) {
-    for (int j = 0; j < numAirports(); j++) {
+  for (int i = 0; i < NumAirports(); i++) {
+    for (int j = 0; j < NumAirports(); j++) {
       if (i == j) { continue; }
 
       IdCity src = IdCity{i};
@@ -140,11 +140,11 @@ void FlightPlannerExact::AddEdgesFlightsExact() {
       if (flight_time < MaxFlightTimeHours()) {
         // Flight that departs with full charge
         double max_battery = MaxBatteryHours();
-        addDirectedEdge(StateAircraft{src, max_battery}, StateAircraft{dst, max_battery - flight_time}, flight_time);
+        AddDirectedEdge(StateAircraft{src, max_battery}, StateAircraft{dst, max_battery - flight_time}, flight_time);
 
         // Flight that arrives with zero charge
         double min_battery = MinBatteryHours();
-        addDirectedEdge(StateAircraft{src, flight_time + min_battery}, StateAircraft{dst, min_battery}, flight_time);
+        AddDirectedEdge(StateAircraft{src, flight_time + min_battery}, StateAircraft{dst, min_battery}, flight_time);
       }
     }
   }
@@ -154,14 +154,14 @@ void FlightPlannerExact::AddEdgesFlightsExact() {
 // FlightPlannerGrid
 
 void FlightPlannerGrid::AddVerticesGrid() {
-  for (int i = 0; i < numAirports(); i++) {
+  for (int i = 0; i < NumAirports(); i++) {
     for (double battery_level : v_battery_levels()) {
-      addVertex(StateAircraft(IdCity{i}, battery_level));
+      AddVertex(StateAircraft(IdCity{i}, battery_level));
     }
   }
 }
 
-int FlightPlannerGrid::findBatteryLevel(const double battery_level) const {
+int FlightPlannerGrid::FindBatteryLevel(const double battery_level) const {
   const vector<double>& v_bat = v_battery_levels();
 
   for (int j = 1; j < n_levels(); j++) {
@@ -175,7 +175,7 @@ int FlightPlannerGrid::findBatteryLevel(const double battery_level) const {
 
 void FlightPlannerGrid::AddEdgesDrivingGrid() {
   for (auto vertex_i : vertices()) {
-    for (int j = 0; j < numAirports(); j++) {
+    for (int j = 0; j < NumAirports(); j++) {
       if (vertex_i.id_city() == IdCity{j}) { continue; }
       double flight_time_ij = CalcFlightTimeHours(vertex_i.id_city(), IdCity{j});
       double battery_i = vertex_i.battery_level_hours();
@@ -183,10 +183,10 @@ void FlightPlannerGrid::AddEdgesDrivingGrid() {
       double battery_min = MinBatteryHours();
 
       if (battery_post < battery_min) { continue; }
-      int ind_lo = findBatteryLevel(battery_post);
+      int ind_lo = FindBatteryLevel(battery_post);
       double battery_level_lo = v_battery_levels()[ind_lo];
       StateAircraft vertex_j_lo{IdCity{j}, battery_level_lo};
-      addDirectedEdge(vertex_i, vertex_j_lo, flight_time_ij);
+      AddDirectedEdge(vertex_i, vertex_j_lo, flight_time_ij);
     }
   }
 }
