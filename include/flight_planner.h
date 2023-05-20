@@ -24,8 +24,7 @@ namespace std {
 /// Represents the ID of a city in the airport list
 class IdCity {
  public:
-  explicit IdCity(int id) : id_(id) {}
-  IdCity() : id_(-1) {}
+  explicit IdCity(int id = -1) : id_(id) {}
 
   bool operator==(const IdCity& other) const { return id_ == other.id_; }
   bool operator!=(const IdCity& other) const { return !(*this == other); }
@@ -57,9 +56,11 @@ class StateAircraft {
   }
   bool operator!=(const StateAircraft& other) const { return !(*this == other); }
   bool operator<(const StateAircraft& other) const {
-    if (id_city_ < other.id_city_) { return true; }
-    if (id_city_ == other.id_city_ && battery_level_hours_ < other.battery_level_hours_) { return true; }
-    return false;
+    if (id_city_ != other.id_city_) {
+      return id_city_ < other.id_city_;
+    } else {
+      return battery_level_hours_ < other.battery_level_hours_;
+    }
   }
 
   IdCity id_city() const { return id_city_; }
@@ -99,7 +100,9 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   void AddEdgesCharge();
 
   /// Calculates the flight time between two cities in hours
-  double CalcFlightTimeHours(IdCity src, IdCity dst) const { return CalcDistKm(src, dst) / SpeedKmPerHr(); }
+  double CalcFlightTimeHours(const IdCity& src, const IdCity& dst) const {
+    return CalcDistKm(src, dst) / SpeedKmPerHr();
+  }
 
   static constexpr double MinBatteryHours() { return 0.0; }
   static constexpr double MaxBatteryHours() { return 320.0 / SpeedKmPerHr(); }
@@ -107,7 +110,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
 
  private:
   // Adds charging edges for a given city
-  void AddEdgesCharge(const IdCity id_city, const set<StateAircraft>& vertex_states);
+  void AddEdgesCharge(const IdCity& id_city, const set<StateAircraft>& vertex_states);
 
   // Gets the IdCity from the name of the city
   IdCity GetIdCity(const string& name) const;
@@ -119,13 +122,13 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   void PrintPath(const vector<StateAircraft>& v_path) const;
 
   // Prints out the cities the plane charges at and the time it charges at each city
-  void PrintChargingCitiesAndTimes(const vector<StateAircraft>& v_path, IdCity id_dst) const;
+  void PrintChargingCitiesAndTimes(const vector<StateAircraft>& v_path, const IdCity& id_dst) const;
 
   // Returns the latitude and longitude of the city in radians
-  pair<double, double> GetLatLonRadians(IdCity id_city) const;
+  pair<double, double> GetLatLonRadians(const IdCity& id_city) const;
 
   // Calculates the distance between two cities in km
-  double CalcDistKm(IdCity src, IdCity dst) const;
+  double CalcDistKm(const IdCity& src, const IdCity& dst) const;
 
   // Calculates the charge time between two states in hours
   double CalcChargeTime(const StateAircraft& state_lo, const StateAircraft& state_hi) const;

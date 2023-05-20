@@ -28,7 +28,7 @@ void FlightPlannerBase::AddEdgesCharge() {
   }
 }
 
-void FlightPlannerBase::AddEdgesCharge(const IdCity id_city, const set<StateAircraft>& vertex_states) {
+void FlightPlannerBase::AddEdgesCharge(const IdCity& id_city, const set<StateAircraft>& vertex_states) {
   // Iterate over the elements of vertex_states which is a set
   for (auto it = vertex_states.begin(); it != vertex_states.end(); it++) {
     StateAircraft vertex_state = *it;
@@ -70,7 +70,7 @@ void FlightPlannerBase::PrintPath(const vector<StateAircraft>& v_path) const {
   cout << endl;
 }
 
-void FlightPlannerBase::PrintChargingCitiesAndTimes(const vector<StateAircraft>& v_path, IdCity id_dst) const {
+void FlightPlannerBase::PrintChargingCitiesAndTimes(const vector<StateAircraft>& v_path, const IdCity& id_dst) const {
   auto fn_find_last_index_of_city = [this](vector<StateAircraft> v_path, int i) {
     int j = i;
     while (j < v_path.size() && v_path[i].id_city() == v_path[j].id_city()) {
@@ -97,14 +97,14 @@ void FlightPlannerBase::PrintChargingCitiesAndTimes(const vector<StateAircraft>&
   }
 }
 
-pair<double, double> FlightPlannerBase::GetLatLonRadians(IdCity id_city) const {
+pair<double, double> FlightPlannerBase::GetLatLonRadians(const IdCity& id_city) const {
   const row& city = GetAirport(id_city);
   double lat_rad = city.lat * M_PI / 180;
   double lon_rad = city.lon * M_PI / 180;
   return make_pair(lat_rad, lon_rad);
 }
 
-double FlightPlannerBase::CalcDistKm(IdCity src, IdCity dst) const {
+double FlightPlannerBase::CalcDistKm(const IdCity& src, const IdCity& dst) const {
   double lat1r, lon1r, lat2r, lon2r, u, v;
 
   // Get the latitude and longitude of the source and destination cities in radians
