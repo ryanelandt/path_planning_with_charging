@@ -89,10 +89,10 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   const auto& airports() const { return airports_; }
 
   /// Returns the number of airports
-  int numAirports() const { return airports().size(); }
+  int NumAirports() const { return airports().size(); }
 
   /// Returns the airport with the given IdCity
-  const row& getAirport(const IdCity id) const { return airports()[id.id()]; }
+  const row& GetAirport(const IdCity id) const { return airports()[id.id()]; }
 
  protected:
   /// Adds charging edges for each city in the graph
@@ -110,9 +110,9 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   void AddEdgesCharge(const IdCity id_city, const set<StateAircraft>& vertex_states);
 
   // Gets the IdCity from the name of the city
-  IdCity GetIdCityFromName(const string& name) const;
+  IdCity GetIdCity(const string& name) const;
 
-  void PrintCity(const IdCity& id_city) const { cout << getAirport(id_city).name; }
+  void PrintCity(const IdCity& id_city) const { cout << GetAirport(id_city).name; }
   void PrintCity(const StateAircraft& state) const { PrintCity(state.id_city()); }
 
   // Prints out the path
@@ -122,7 +122,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   void PrintChargingCitiesAndTimes(const vector<StateAircraft>& v_path, IdCity id_dst) const;
 
   // Returns the latitude and longitude of the city in radians
-  pair<double, double> getLatLonRadians(IdCity id_city) const;
+  pair<double, double> GetLatLonRadians(IdCity id_city) const;
 
   // Calculates the distance between two cities in km
   double CalcDistKm(IdCity src, IdCity dst) const;
@@ -131,7 +131,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   double CalcChargeTime(const StateAircraft& state_lo, const StateAircraft& state_hi) const;
 
   // Calculates the charge rate at a city in km/hr
-  double CalcChargeRateKmPerHr(const IdCity& id_city) const { return getAirport(id_city).rate; }
+  double CalcChargeRateKmPerHr(const IdCity& id_city) const { return GetAirport(id_city).rate; }
 
   static constexpr double RadEarth() { return 6356.752; }  // Radius of Earth in km
   static constexpr double SpeedKmPerHr() { return 105.0; }  // Speed of aircraft in km/hr
@@ -185,7 +185,7 @@ class FlightPlannerGrid : public FlightPlannerBase {
 
   void AddVerticesGrid();
 
-  int findBatteryLevel(const double battery_level) const;
+  int FindBatteryLevel(const double battery_level) const;
 
   void AddEdgesDrivingGrid();
 
