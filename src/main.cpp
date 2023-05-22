@@ -11,8 +11,8 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  FlightPlannerExact(airports).SolvePathAndPrint(argv[1], argv[2]);
-  // FlightPlannerGrid(airports, 4).SolvePathAndPrint(argv[1], argv[2]);
+  FlightPlannerExact(airports).SolvePathAndPrint(argv[1], argv[2]);  // Run the exact planner
+  // FlightPlannerGrid(airports, 4).SolvePathAndPrint(argv[1], argv[2]);  // Run the grid planner
 
   return 0;
 };
