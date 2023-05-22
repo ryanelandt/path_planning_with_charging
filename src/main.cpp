@@ -1,5 +1,5 @@
-#include "airports.h"
-#include "flight_planner.h"
+#include "../include/airports.h"
+#include "../include/flight_planner.h"
 
 
 using namespace std;
