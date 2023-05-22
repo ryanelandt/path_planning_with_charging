@@ -103,7 +103,10 @@ class GraphDirected {
     return make_pair(path, dist[dst]);  // Return the shortest path and its cost
   }
 
+  /// Returns the set of vertices in the graph
   const set<VertexType>& vertices() const { return vertices_; }
+
+  /// Returns the adjacency list of the graph
   const map<VertexType, map<VertexType, double>>& adjacency_list() const { return adjacency_list_; }
 
  private:

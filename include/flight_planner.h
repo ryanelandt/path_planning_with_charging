@@ -30,10 +30,11 @@ class IdCity {
   bool operator!=(const IdCity& other) const { return !(*this == other); }
   bool operator<(const IdCity& other) const { return id_ < other.id_; }
 
+  /// Returns the id of the city
   int id() const { return id_; }
 
  private:
-  int id_;
+  int id_;  // Id of the city
 };
 
 
@@ -46,6 +47,8 @@ class StateAircraft {
     id_city_(id_city), battery_level_hours_(battery_level_hours) {}
   StateAircraft() : id_city_(IdCity()), battery_level_hours_(-1.0) {}
 
+  /// Calculates the change in battery flying time from this state to another state
+  ///   DeltaBattery = BatteryOther - BatteryThis
   double CalcBatteryDelta(const StateAircraft& other) const {
     assert(id_city_ == other.id_city_);
     return other.battery_level_hours_ - battery_level_hours_;
@@ -63,12 +66,15 @@ class StateAircraft {
     }
   }
 
+  /// Returns the id of the city
   IdCity id_city() const { return id_city_; }
+
+  /// Returns the remaining battery flight time in hours
   double battery_level_hours() const { return battery_level_hours_; }
 
  private:
-  IdCity id_city_;
-  double battery_level_hours_;
+  IdCity id_city_;  // Id of the city
+  double battery_level_hours_;  // Remaining battery flight time in hours
 };
 
 
@@ -105,6 +111,9 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   }
 
   static constexpr double MinBatteryHours() { return 0.0; }
+
+  /// Returns the maximum battery flytime in hours. The maximum flytime is the
+  /// maximum flight distance 320km divided by the speed of the aircraft.
   static constexpr double MaxBatteryHours() { return 320.0 / SpeedKmPerHr(); }
   static constexpr double MaxFlightTimeHours() { return MaxBatteryHours() - MinBatteryHours(); }
 
@@ -137,7 +146,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   double CalcChargeRateKmPerHr(const IdCity& id_city) const { return GetAirport(id_city).rate; }
 
   static constexpr double RadEarth() { return 6356.752; }  // Radius of Earth in km
-  static constexpr double SpeedKmPerHr() { return 105.0; }  // Speed of aircraft in km/hr
+  static constexpr double SpeedKmPerHr() { return 105.0; }  // Speed of aircraft in km/hr from the problem statement
 
   const std::array<row, 303> airports_;  // List of airports copied from the non-constant global in airports.h
 };
@@ -153,6 +162,7 @@ class FlightPlannerExact : public FlightPlannerBase {
   }
 
  private:
+  // Adds edges for this graph construction approach
   void AddEdgesFlightsExact();
 };
 
@@ -170,10 +180,14 @@ class FlightPlannerGrid : public FlightPlannerBase {
     AddEdgesCharge();
   }
 
+  /// Returns the number of battery levels in the grid
   int n_levels() const { return n_levels_; }
+
+  /// Returns the vector of evenly spaced battery levels
   const vector<double>& v_battery_levels() const { return v_battery_levels_; }
 
  private:
+  // Creates a vector of evenly spaced battery levels between the minimum and maximum battery levels
   static vector<double> CreateGridBatteryLevels(int n_levels) {
     const double delta_battery = (MaxBatteryHours() - MinBatteryHours()) / (n_levels - 1);
 
@@ -186,14 +200,17 @@ class FlightPlannerGrid : public FlightPlannerBase {
     return v_battery_levels;
   }
 
+  // Adds vertices linearly spaced between the minimum and maximum battery levels
   void AddVerticesGrid();
 
+  // Finds the battery level in the grid that is closest to the given battery level
   int FindBatteryLevel(const double battery_level) const;
 
+  // Adds approximate edges for this graph construction approach
   void AddEdgesDrivingGrid();
 
-  const int n_levels_;
-  const vector<double> v_battery_levels_;
+  const int n_levels_;  // Number of evenly spaced battery levels in the grid
+  const vector<double> v_battery_levels_;  // Vector of evenly spaced battery levels
 };
 
 };  // namespace std
