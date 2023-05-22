@@ -1,5 +1,5 @@
-#include "flight_planner.h"
-#include "airports.h"
+#include "../include/flight_planner.h"
+#include "../include/airports.h"
 
 #include <gtest/gtest.h>
 #include <filesystem>

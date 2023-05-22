@@ -15,8 +15,8 @@
 #include <vector>
 
 
-#include "airports.h"
-#include "graph_directed.h"
+#include "./airports.h"
+#include "./graph_directed.h"
 
 namespace std {
 
