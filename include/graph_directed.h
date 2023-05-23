@@ -7,7 +7,7 @@
 #include <utility>
 #include <vector>
 #include <limits>
-
+#include <cassert>
 
 namespace std {
 
@@ -74,7 +74,11 @@ class GraphDirected {
       if (visited[u]) { continue; }
       visited[u] = true;
 
-      for (const auto &vertex_and_edge_cost : adjacency_list().at(u)) {
+      // Update the distances of the neighbors of u
+      const auto& it = adjacency_list().find(u);
+      if (it == adjacency_list().end()) { continue; }
+
+      for (const auto& vertex_and_edge_cost : it->second) {
         const auto& [v, cost_uv] = vertex_and_edge_cost;
         double dist_alt = dist[u] + cost_uv;
         if (!visited[v] && dist_alt < dist[v]) {

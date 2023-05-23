@@ -37,6 +37,7 @@ target_link_libraries(flight_planner
 # Create test
 add_executable(flight_planner_test
   test/flight_planner_test.cpp
+  test/graph_directed_test.cpp
 )
 target_link_libraries(flight_planner_test
   FlightPathLibrary
