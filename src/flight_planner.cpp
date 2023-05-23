@@ -6,9 +6,47 @@ namespace std {
 // FlightPlannerBase
 
 pair<vector<StateAircraft>, double> FlightPlannerBase::SolvePath(const char* char_src, const char* char_dst) const {
-  StateAircraft src{GetIdCity(char_src), MaxBatteryHours()};  // Source city with fully battery
-  StateAircraft dst{GetIdCity(char_dst), MinBatteryHours()};  // Destination city
-  return CalcMinCostPathDijkstra(src, dst);                   // Solve for the minimum cost path
+  StateAircraft src{GetIdCity(char_src), MaxBatteryHours()};      // Source city with fully battery
+  StateAircraft dst{GetIdCity(char_dst), MinBatteryHours()};      // Destination city
+  const auto pair_path_cost = CalcMinCostPathDijkstra(src, dst);  // Solve for the minimum cost path
+
+  const auto& path = pair_path_cost.first;  // The path
+  
+  // Remove unneeded vertices from the path. The example below explains why the path has unneeded vertices.
+  //
+  // A plane starts in city 0. It flies to city 1 and recharges before flying to city 2. The path for this
+  // journey is:
+  //     (city 0, 1.0)
+  //     (city 1, 0.1)  **Charging starts**
+  //     (city 1, 0.2)      (unneeded)
+  //     (city 1, 0.3)      (unneeded)
+  //     (city 1, 0.4)      (unneeded)
+  //     (city 1, 0.5)  **Charging ends**
+  //     (city 2, 0.0)
+  //
+  // Create a bool vector with all path vertices marked as true
+  vector<bool> v_needed(path.size(), true);
+
+  // Mark the vertices that are not needed with false
+  for (int i = 1; i < (path.size() - 1); i++) {
+    const auto id_prev = path[i - 1].id_city();
+    const auto id_curr = path[i].id_city();
+    const auto id_next = path[i + 1].id_city();
+    if (id_prev == id_curr && id_curr == id_next) {
+      v_needed[i] = false;
+    }
+  }
+
+  // Create a new path vector with only the needed vertices
+  vector<StateAircraft> path_filter;
+  for (int i = 0; i < path.size(); i++) {
+    if (v_needed[i]) {
+      path_filter.push_back(path[i]);
+    }
+  }
+
+  // Return the new path and the cost
+  return make_pair(path_filter, pair_path_cost.second);
 }
 
 void FlightPlannerBase::AddEdgesCharge() {
@@ -60,39 +98,29 @@ void FlightPlannerBase::PrintPath(const vector<StateAircraft>& v_path) const {
   IdCity id_dst = v_path[v_path.size() - 1].id_city();  // Id of the last city
 
   cout << endl;
-  PrintCity(id_src); cout << ", " << endl;      // Print first city
+  PrintCity(v_path[0]);
   PrintChargingCitiesAndTimes(v_path, id_dst);  // Print out each intermediate city and charging time
-  PrintCity(id_dst);                            // Print last city
   cout << endl;
 }
 
 void FlightPlannerBase::PrintChargingCitiesAndTimes(const vector<StateAircraft>& v_path, const IdCity& id_dst) const {
-  // Finds the index where charging stops
-  auto fn_find_i_stop = [this](const vector<StateAircraft>& v_path, int i_start) {
-    int i_stop = i_start;
-    while (v_path[i_start].id_city() == v_path[i_stop].id_city()) {  // Is same city
-      i_stop++;
-      if (i_stop == v_path.size()) { break; }  // Reached the end of the path
+  for (int i = 1; i < v_path.size(); ++i) {
+    const auto& state_prev = v_path[i - 1];
+    const auto& state_curr = v_path[i];
+
+    // If state_prev is the last city return
+    if (state_prev.id_city() == id_dst) { return; }
+
+    // If city changes print new city
+    if (state_prev.id_city() != state_curr.id_city()) {
+      cout << "," << endl;
+      PrintCity(state_curr);
+
+    // If city is the same print charging time
+    } else {
+      double charge_time_hours = CalcChargeTime(state_prev, state_curr);
+      cout << ", " << setprecision(16) << charge_time_hours;
     }
-
-    return i_stop - 1;  // The last index before the city changes
-  };
-
-  // Prints out the change time
-  auto fn_print_charge_time = [this](vector<StateAircraft> v_path, int i_arrive, int i_depart) {
-    PrintCity(v_path[i_arrive]);
-    double charge_time_hours = CalcChargeTime(v_path[i_arrive], v_path[i_depart]);
-    cout << ", " << setprecision(16) << charge_time_hours << "," << endl;
-  };
-
-  // Runs the lambda on each city the plane charges at
-  int i_charge_start = 1;
-  int i_charge_stop = -1;
-
-  while (v_path[i_charge_start].id_city() != id_dst) {
-    i_charge_stop = fn_find_i_stop(v_path, i_charge_start);
-    fn_print_charge_time(v_path, i_charge_start, i_charge_stop);
-    i_charge_start = i_charge_stop + 1;  // Start at the next city
   }
 }
 
