@@ -34,7 +34,7 @@ To find the minimum time path, one needs to minimize the sum of the flying time 
 
 This minimum time path is found with the help of a directed graph.
 
-# Directed Graph for path planning + charging
+# Directed graph for path planning + charging
 
 A directed graph is made up of vertices and directed edges.
 For this problem, each vertex represents an allowed state of the plane.
@@ -43,25 +43,33 @@ The plane's state is made up of an airport and the amount of flight time the bat
     state = (airport, battery_remaining)
 
 Edges represent allowed transitions between states.
-For this problem, the edge cost is the time a transition takes to complete.
+For this problem, there are two types of state transitions: flying and charging.
+For both edge types, the cost is the transition time.
 
-    edge cost = time
+    edge cost = flight time  (flying edges)
+    edge cost = charge time  (charging edges)
 
-This problem has two types of transitions: flying and charging.
-The flying transition is described below.
+**Flying edges** describe transitions from one city to another.
 
     Flying
       (airport_i, battery_remaining) --> (airport_j, battery_remaining - flight time)
-      edge cost = flight time
 
-Each airport has a charging speed R.
-If R=2, this means that one hour of charging time gives the plane two hours of flight time.
-The charging transition is described below.
+**Charging edges** describe increases is battery level.
 
-    Charging:
-      (airport_i, battery_initial) --> (airport_i, battery_initial + Ri * charge time)
-      edge cost = change time
+    Charging
+      (airport_i, battery_u) --> (airport_i, battery_u+)
 
+The charging time depends on $R$, the charging rate at each airport.
+This term relates increases in battery level to time spent charging.
+  
+    R = d(battery level) / d(charging time)
+
+The time required to charge from battery level $u$ to battery level $u^+$ is as follows.
+
+    charge_time = (battery_u^+ - battery_u) / R.
+
+
+**Shortest paths.**
 The minimum time path between two states is approximately the minimum cost path between the corresponding vertices in the graph.
 This approximate path can be found with a shortest "path" algorithm such as Djikstra's or A*.
 For specially constructed graphs, there is no approximation, and the shortest path is the minimum time path.
@@ -92,7 +100,7 @@ The next section describes how to get zero error with a finite sized graph.
 ## Exact battery levels (Optimal Graph)
 
 This path planning problem is structured in such a way that only certain city-specific battery levels can be present in the optimal solution.
-By constructing a graph that contains only these battery levels using the algorithm described below, the optimal solution is gauranteed.
+By constructing a graph that contains only these battery levels using the algorithm described below, the optimal solution is guaranteed.
 
 **Optimal graph construction algorithm:**
 The plane's flight time on a full battery is $t_{max}$.
@@ -109,7 +117,7 @@ The sequence of ASCII art drawings below explain why this is true.
 
 #
 ### Case 1:
-The plane flys directly to the destination city.
+The plane flies directly to the destination city.
 - City 0→1, the plane **leaves city 0 with a full charge** and arrives in city 1.
 ```
  Max   ___       ___                                      
