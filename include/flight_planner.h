@@ -18,8 +18,6 @@
 #include "./airports.h"
 #include "./graph_directed.h"
 
-namespace std {
-
 
 /// Represents the ID of a city in the airport list
 class IdCity {
@@ -84,7 +82,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   explicit FlightPlannerBase(const std::array<row, 303>& airports) : airports_(airports) {}
 
   /// Solves for the minimum time path
-  pair<vector<StateAircraft>, double> SolvePath(const char* char_src, const char* char_dst) const;
+  std::pair<std::vector<StateAircraft>, double> SolvePath(const char* char_src, const char* char_dst) const;
 
   /// Solves for the minimum time path and prints it out
   void SolvePathAndPrint(const char* char_src, const char* char_dst) const {
@@ -119,22 +117,22 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
 
  private:
   // Adds charging edges for a given city
-  void AddEdgesCharge(const IdCity& id_city, const set<StateAircraft>& vertex_states);
+  void AddEdgesCharge(const IdCity& id_city, const std::set<StateAircraft>& vertex_states);
 
   // Gets the IdCity from the name of the city
-  IdCity GetIdCity(const string& name) const;
+  IdCity GetIdCity(const std::string& name) const;
 
-  void PrintCity(const IdCity& id_city) const { cout << GetAirport(id_city).name; }
+  void PrintCity(const IdCity& id_city) const { std::cout << GetAirport(id_city).name; }
   void PrintCity(const StateAircraft& state) const { PrintCity(state.id_city()); }
 
   // Prints out the path
-  void PrintPath(const vector<StateAircraft>& v_path) const;
+  void PrintPath(const std::vector<StateAircraft>& v_path) const;
 
   // Prints out the cities the plane charges at and the time it charges at each city
-  void PrintChargingCitiesAndTimes(const vector<StateAircraft>& v_path, const IdCity& id_dst) const;
+  void PrintChargingCitiesAndTimes(const std::vector<StateAircraft>& v_path) const;
 
   // Returns the latitude and longitude of the city in radians
-  pair<double, double> GetLatLonRadians(const IdCity& id_city) const;
+  std::pair<double, double> GetLatLonRadians(const IdCity& id_city) const;
 
   // Calculates the distance between two cities in km
   double CalcDistKm(const IdCity& src, const IdCity& dst) const;
@@ -184,14 +182,14 @@ class FlightPlannerGrid : public FlightPlannerBase {
   int n_levels() const { return n_levels_; }
 
   /// Returns the vector of evenly spaced battery levels
-  const vector<double>& v_battery_levels() const { return v_battery_levels_; }
+  const std::vector<double>& v_battery_levels() const { return v_battery_levels_; }
 
  private:
   // Creates a vector of evenly spaced battery levels between the minimum and maximum battery levels
-  static vector<double> CreateGridBatteryLevels(int n_levels) {
+  static std::vector<double> CreateGridBatteryLevels(int n_levels) {
     const double delta_battery = (MaxBatteryHours() - MinBatteryHours()) / (n_levels - 1);
 
-    vector<double> v_battery_levels;
+    std::vector<double> v_battery_levels;
     for (int i = 0; i < n_levels; i++) {
       double battery_level = MinBatteryHours() + delta_battery * i;
       v_battery_levels.push_back(battery_level);
@@ -210,7 +208,5 @@ class FlightPlannerGrid : public FlightPlannerBase {
   void AddEdgesDrivingGrid();
 
   const int n_levels_;  // Number of evenly spaced battery levels in the grid
-  const vector<double> v_battery_levels_;  // Vector of evenly spaced battery levels
+  const std::vector<double> v_battery_levels_;  // Vector of evenly spaced battery levels
 };
-
-};  // namespace std

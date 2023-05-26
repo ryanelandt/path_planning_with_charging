@@ -2,14 +2,14 @@
 #include "../include/airports.h"
 
 #include <gtest/gtest.h>
-#include <filesystem>
+
+#include <string>
 #include <regex>
+#include <filesystem>
 
 
 static bool USE_FAST_TEST = true;
 
-
-namespace std {
 
 TEST(GraphCheck, RegressionTestExact) {
   const auto airport_graph = FlightPlannerExact(airports);
@@ -58,8 +58,8 @@ std::vector<std::pair<std::string, std::string>> generateCityPairs(const std::ar
     for (size_t i = 0; i < cities.size(); ++i) {
       for (size_t j = i + 1; j < cities.size(); ++j) {
         if (i == j) continue;  // Reference solution does not handle this case
-        const string& name_i = cities[i].name;
-        const string& name_j = cities[j].name;
+        const std::string& name_i = cities[i].name;
+        const std::string& name_j = cities[j].name;
         cityPairs.emplace_back(name_i, name_j);
       }
     }
@@ -81,9 +81,9 @@ std::vector<std::pair<std::string, std::string>> generateCityPairs(const std::ar
 class FlightPathTester : public ::testing::Test {
  protected:
   // Helper function to execute the checker and capture its output
-  std::string runTestCities(const pair<string, string>& cityPair) const {
-    const string escape_city_name_1 = escapeCityName(cityPair.first);
-    const string escape_city_name_2 = escapeCityName(cityPair.second);
+  std::string runTestCities(const std::pair<std::string, std::string>& cityPair) const {
+    const std::string escape_city_name_1 = escapeCityName(cityPair.first);
+    const std::string escape_city_name_2 = escapeCityName(cityPair.second);
 
     // TODO(ryanelandt): detect operating system and use the appropriate checker
     std::string command = "../checker_linux \"$(./flight_planner " +
@@ -151,19 +151,19 @@ class FlightPathTester : public ::testing::Test {
     return findNumberAfterString(output, candidate_success_string());
   }
 
-  const string& reference_success_string() const { return reference_success_string_; }
-  const string& candidate_success_string() const { return candidate_success_string_; }
+  const std::string& reference_success_string() const { return reference_success_string_; }
+  const std::string& candidate_success_string() const { return candidate_success_string_; }
 
  private:
-  const string reference_success_string_ = "Reference result: Success, cost was ";
-  const string candidate_success_string_ = "Candidate result: Success, cost was ";
+  const std::string reference_success_string_ = "Reference result: Success, cost was ";
+  const std::string candidate_success_string_ = "Candidate result: Success, cost was ";
 };
 
 
 
 // Test that the tester calculated travel times agree with the console output
 TEST_F(FlightPathTester, TestParseOutput) {
-  const string output = runTestCities({"Manteca_CA", "Fort_Myers_FL"});
+  const std::string output = runTestCities({"Manteca_CA", "Fort_Myers_FL"});
   ASSERT_EQ(getReferenceCost(output), 67.3259);
   ASSERT_EQ(getCandidateCost(output), 66.1095);
 }
@@ -240,5 +240,3 @@ TEST(Linspaced, Convergence) {
   EXPECT_LT(cost_128, cost_64);
   EXPECT_LT(cost_256, cost_128);
 }
-
-};  // namespace std
