@@ -41,7 +41,6 @@
 </div>
 
 
-
 <div class="snippet-clipboard-content notranslate position-relative overflow-auto">
   <!-- <a href=https://ryanelandt.github.io/projects/cpp_path_planning/>
     <pre class="notranslate">Text here</pre>
@@ -81,6 +80,22 @@
       <head>
       </head>
     </html>
+
+
+
+<div align="center">
+  <strong>
+    <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 24px;">Click for interactive planner</a>
+  </strong>
+</div>
+
+<div align="center">
+  <strong>
+    <a href="https://ryanelandt.github.io/projects/cpp_path_planning/">Click for interactive planner</a>
+  </strong>
+</div>
+
+
 
 # Problem summary
 
