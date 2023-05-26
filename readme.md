@@ -9,21 +9,20 @@
   </a>
 </div>
 
-<div align="center">
-  <div style="border: 1px solid black; padding: 10px; display: inline-block;">
-    <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 18px;">Click for interactive planner</a>
-  </div>
-</div>
 
-<div align="center">
-  <div style="border: 1px solid black; padding: 10px; display: inline-block;">
-    <strong>
-      <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 18px;">Click for interactive planner</a>
-    </strong>
-  </div>
-</div>
+# Problem summary (A)
 
+This project is a solution to the minimum time path planning problem for a small electric plane as described in the file [`problem_statement.md`](problem_statement.md).
+The plane has a limited range and can recharge at intermediate airports along its journey.
+The plane charges faster at some airports than at others.
+The plane leaves with a full charge.
+This readme describes how to find the optimal solution to this problem.
 
+#
+
+#
+
+#
 
 <pre>
 </pre>
@@ -39,7 +38,88 @@
 </pre>
 
 
-# Problem summary
+# Problem summary (B)
+
+This project is a solution to the minimum time path planning problem for a small electric plane as described in the file [`problem_statement.md`](problem_statement.md).
+The plane has a limited range and can recharge at intermediate airports along its journey.
+The plane charges faster at some airports than at others.
+The plane leaves with a full charge.
+This readme describes how to find the optimal solution to this problem.
+
+#
+
+#
+
+#
+
+<pre>
+</pre>
+
+<div align="center">
+  <strong>
+    <a href="https://ryanelandt.github.io/projects/cpp_path_planning/">Click for interactive planner</a>
+  </strong>
+</div>
+
+
+<pre>
+</pre>
+
+
+# Problem summary (C)
+
+This project is a solution to the minimum time path planning problem for a small electric plane as described in the file [`problem_statement.md`](problem_statement.md).
+The plane has a limited range and can recharge at intermediate airports along its journey.
+The plane charges faster at some airports than at others.
+The plane leaves with a full charge.
+This readme describes how to find the optimal solution to this problem.
+
+
+#
+
+#
+
+#
+
+<div align="center">
+  <div style="border: 1px solid black; padding: 10px; display: inline-block;">
+    <strong>
+      <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 18px;">Click for interactive planner</a>
+    </strong>
+  </div>
+</div>
+
+
+# Problem summary (D)
+
+This project is a solution to the minimum time path planning problem for a small electric plane as described in the file [`problem_statement.md`](problem_statement.md).
+The plane has a limited range and can recharge at intermediate airports along its journey.
+The plane charges faster at some airports than at others.
+The plane leaves with a full charge.
+This readme describes how to find the optimal solution to this problem.
+
+
+#
+
+#
+
+#
+
+<pre>
+</pre>
+
+<div align="center">
+  <strong>
+    <a href="https://ryanelandt.github.io/projects/cpp_path_planning/">Click for interactive planner</a>
+  </strong>
+</div>
+
+
+<pre>
+</pre>
+
+
+# Problem summary (E)
 
 This project is a solution to the minimum time path planning problem for a small electric plane as described in the file [`problem_statement.md`](problem_statement.md).
 The plane has a limited range and can recharge at intermediate airports along its journey.
