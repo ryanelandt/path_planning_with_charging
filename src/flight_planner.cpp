@@ -1,17 +1,16 @@
 #include "../include/flight_planner.h"
 
 
-namespace std {
-
 // FlightPlannerBase
 
-pair<vector<StateAircraft>, double> FlightPlannerBase::SolvePath(const char* char_src, const char* char_dst) const {
+std::pair<std::vector<StateAircraft>, double> FlightPlannerBase::SolvePath(const char* char_src,
+                                                                           const char* char_dst) const {
   StateAircraft src{GetIdCity(char_src), MaxBatteryHours()};      // Source city with fully battery
   StateAircraft dst{GetIdCity(char_dst), MinBatteryHours()};      // Destination city
   const auto pair_path_cost = CalcMinCostPathDijkstra(src, dst);  // Solve for the minimum cost path
 
   const auto& path = pair_path_cost.first;  // The path
-  
+
   // Remove unneeded vertices from the path. The example below explains why the path has unneeded vertices.
   //
   // A plane starts in city 0. It flies to city 1 and recharges before flying to city 2. The path for this
@@ -25,7 +24,7 @@ pair<vector<StateAircraft>, double> FlightPlannerBase::SolvePath(const char* cha
   //     (city 2, 0.0)
   //
   // Create a bool vector with all path vertices marked as true
-  vector<bool> v_needed(path.size(), true);
+  std::vector<bool> v_needed(path.size(), true);
 
   // Mark the vertices that are not needed with false
   for (int i = 1; i < (path.size() - 1); i++) {
@@ -38,7 +37,7 @@ pair<vector<StateAircraft>, double> FlightPlannerBase::SolvePath(const char* cha
   }
 
   // Create a new path vector with only the needed vertices
-  vector<StateAircraft> path_filter;
+  std::vector<StateAircraft> path_filter;
   for (int i = 0; i < path.size(); i++) {
     if (v_needed[i]) {
       path_filter.push_back(path[i]);
@@ -46,12 +45,12 @@ pair<vector<StateAircraft>, double> FlightPlannerBase::SolvePath(const char* cha
   }
 
   // Return the new path and the cost
-  return make_pair(path_filter, pair_path_cost.second);
+  return std::make_pair(path_filter, pair_path_cost.second);
 }
 
 void FlightPlannerBase::AddEdgesCharge() {
   // Create a map from IdCity to the set of VertexStates that have that IdCity
-  map<IdCity, set<StateAircraft>> map_id_city_to_vertex_states;
+  std::map<IdCity, std::set<StateAircraft>> map_id_city_to_vertex_states;
   for (auto vertex : vertices()) {
     map_id_city_to_vertex_states[vertex.id_city()].insert(vertex);
   }
@@ -62,7 +61,7 @@ void FlightPlannerBase::AddEdgesCharge() {
   }
 }
 
-void FlightPlannerBase::AddEdgesCharge(const IdCity& id_city, const set<StateAircraft>& vertex_states) {
+void FlightPlannerBase::AddEdgesCharge(const IdCity& id_city, const std::set<StateAircraft>& vertex_states) {
   // Iterate over the elements of vertex_states which is a set
   for (auto it = vertex_states.begin(); it != vertex_states.end(); it++) {
     StateAircraft vertex_state = *it;
@@ -84,26 +83,25 @@ void FlightPlannerBase::AddEdgesCharge(const IdCity& id_city, const set<StateAir
   }
 }
 
-IdCity FlightPlannerBase::GetIdCity(const string& name) const {
+IdCity FlightPlannerBase::GetIdCity(const std::string& name) const {
   for (int i = 0; i < NumAirports(); i++) {
     if (GetAirport(IdCity{i}).name == name) {
       return IdCity{i};
     }
   }
-  throw runtime_error("City " + name + " not found");
+  throw std::runtime_error("City " + name + " not found");
 }
 
-void FlightPlannerBase::PrintPath(const vector<StateAircraft>& v_path) const {
-  IdCity id_src = v_path[0].id_city();                  // Id of the first city
-  IdCity id_dst = v_path[v_path.size() - 1].id_city();  // Id of the last city
-
-  cout << endl;
+void FlightPlannerBase::PrintPath(const std::vector<StateAircraft>& v_path) const {
+  std::cout << std::endl;
   PrintCity(v_path[0]);
-  PrintChargingCitiesAndTimes(v_path, id_dst);  // Print out each intermediate city and charging time
-  cout << endl;
+  PrintChargingCitiesAndTimes(v_path);  // Print out each intermediate city and charging time
+  std::cout << std::endl;
 }
 
-void FlightPlannerBase::PrintChargingCitiesAndTimes(const vector<StateAircraft>& v_path, const IdCity& id_dst) const {
+void FlightPlannerBase::PrintChargingCitiesAndTimes(const std::vector<StateAircraft>& v_path) const {
+  const IdCity& id_dst = v_path[v_path.size() - 1].id_city();  // Id of the last city
+
   for (int i = 1; i < v_path.size(); ++i) {
     const auto& state_prev = v_path[i - 1];
     const auto& state_curr = v_path[i];
@@ -113,22 +111,22 @@ void FlightPlannerBase::PrintChargingCitiesAndTimes(const vector<StateAircraft>&
 
     // If city changes print new city
     if (state_prev.id_city() != state_curr.id_city()) {
-      cout << "," << endl;
+      std::cout << "," << std::endl;
       PrintCity(state_curr);
 
     // If city is the same print charging time
     } else {
       double charge_time_hours = CalcChargeTime(state_prev, state_curr);
-      cout << ", " << setprecision(16) << charge_time_hours;
+      std::cout << ", " << std::setprecision(16) << charge_time_hours;
     }
   }
 }
 
-pair<double, double> FlightPlannerBase::GetLatLonRadians(const IdCity& id_city) const {
+std::pair<double, double> FlightPlannerBase::GetLatLonRadians(const IdCity& id_city) const {
   const row& city = GetAirport(id_city);
   double lat_rad = city.lat * M_PI / 180;
   double lon_rad = city.lon * M_PI / 180;
-  return make_pair(lat_rad, lon_rad);
+  return std::make_pair(lat_rad, lon_rad);
 }
 
 double FlightPlannerBase::CalcDistKm(const IdCity& src, const IdCity& dst) const {
@@ -195,7 +193,7 @@ void FlightPlannerGrid::AddVerticesGrid() {
 
 // Finds the nearest battery level without going over
 int FlightPlannerGrid::FindBatteryLevel(const double battery_level) const {
-  const vector<double>& v_bat = v_battery_levels();
+  const std::vector<double>& v_bat = v_battery_levels();
 
   for (int j = 1; j < n_levels(); j++) {
     int i = j - 1;
@@ -203,7 +201,7 @@ int FlightPlannerGrid::FindBatteryLevel(const double battery_level) const {
       return i;
     }
   }
-  throw runtime_error("Battery level " + to_string(battery_level) + " not found");
+  throw std::runtime_error("Battery level " + std::to_string(battery_level) + " not found");
 }
 
 void FlightPlannerGrid::AddEdgesDrivingGrid() {
@@ -223,5 +221,3 @@ void FlightPlannerGrid::AddEdgesDrivingGrid() {
     }
   }
 }
-
-}  // namespace std

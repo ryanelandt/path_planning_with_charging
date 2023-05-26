@@ -9,7 +9,6 @@
 #include <limits>
 #include <cassert>
 
-namespace std {
 
 /// Graph class for a directed graph with vertices of type VertexType
 template <typename VertexType>
@@ -46,14 +45,15 @@ class GraphDirected {
   }
 
   /// Perform Dijkstra's algorithm to find the shortest path between vertices src and dst
-  pair<vector<VertexType>, double> CalcMinCostPathDijkstra(const VertexType& src, const VertexType& dst) const {
+  std::pair<std::vector<VertexType>, double> CalcMinCostPathDijkstra(const VertexType& src,
+                                                                     const VertexType& dst) const {
     // Initialize distances, visited array, and parent map
-    map<VertexType, double> dist;
-    map<VertexType, bool> visited;
-    map<VertexType, VertexType> parent;
+    std::map<VertexType, double> dist;
+    std::map<VertexType, bool> visited;
+    std::map<VertexType, VertexType> parent;
 
     for (const VertexType& v : vertices()) {
-      dist[v] = numeric_limits<double>::infinity();
+      dist[v] = std::numeric_limits<double>::infinity();
       visited[v] = false;
       parent[v] = VertexType();
     }
@@ -61,7 +61,9 @@ class GraphDirected {
     dist[src] = 0;
 
     // Priority queue to store vertices and their distances
-    priority_queue<pair<double, VertexType>, vector<pair<double, VertexType>>, greater<pair<double, VertexType>>> pq;
+    std::priority_queue<std::pair<double, VertexType>,
+                        std::vector<std::pair<double, VertexType>>,
+                        std::greater<std::pair<double, VertexType>>> pq;
 
     // Add the source vertex to the priority queue
     pq.emplace(dist[src], src);
@@ -90,7 +92,7 @@ class GraphDirected {
     }
 
     // Reconstruct the shortest path
-    vector<VertexType> path;
+    std::vector<VertexType> path;
     VertexType current = dst;
     while (current != src) {
       path.push_back(current);
@@ -98,7 +100,7 @@ class GraphDirected {
       if (current == VertexType()) {
         // The current vertex has no parent, which means that it is not
         // reachable from the source vertex, and hence there is no valid path
-        return make_pair(vector<VertexType>(), numeric_limits<double>::infinity());
+        return make_pair(std::vector<VertexType>(), std::numeric_limits<double>::infinity());
       }
     }
 
@@ -108,14 +110,12 @@ class GraphDirected {
   }
 
   /// Returns the set of vertices in the graph
-  const set<VertexType>& vertices() const { return vertices_; }
+  const std::set<VertexType>& vertices() const { return vertices_; }
 
   /// Returns the adjacency list of the graph
-  const map<VertexType, map<VertexType, double>>& adjacency_list() const { return adjacency_list_; }
+  const std::map<VertexType, std::map<VertexType, double>>& adjacency_list() const { return adjacency_list_; }
 
  private:
-  set<VertexType> vertices_;  // List of vertices in the graph
-  map<VertexType, map<VertexType, double>> adjacency_list_;  // Adjacency list of the graph
+  std::set<VertexType> vertices_;  // List of vertices in the graph
+  std::map<VertexType, std::map<VertexType, double>> adjacency_list_;  // Adjacency list of the graph
 };
-
-};  // namespace std
