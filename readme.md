@@ -15,6 +15,32 @@
   </div>
 </div>
 
+<div align="center">
+  <div style="border: 1px solid black; padding: 10px; display: inline-block;">
+    <strong>
+      <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 18px;">Click for interactive planner</a>
+    </strong>
+  </div>
+</div>
+
+<div align="center">
+  <div style="border: 1px solid black; padding: 20px; display: inline-block;">
+    <strong>
+      <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 18px;">Click for interactive planner</a>
+    </strong>
+  </div>
+</div>
+
+
+<div align="center">
+  <div style="border: 1px solid black; padding: 20px; display: inline-block;">
+    <strong>
+      <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 24px;">Click for interactive planner</a>
+    </strong>
+  </div>
+</div>
+
+
 
 <div class="snippet-clipboard-content notranslate position-relative overflow-auto">
   <!-- <a href=https://ryanelandt.github.io/projects/cpp_path_planning/>
