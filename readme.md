@@ -1,7 +1,16 @@
 
+<div align="center">
+  <a href=https://ryanelandt.github.io/projects/cpp_path_planning/>
+    <strong>
+      <pre>Click for interactive planner</pre>
+    </strong>
+  </a>
+</div>
+
+
 # Problem summary
 
-This project is a solution to the minimum time path planning problem for a small electric plane as described in the file `problem_statement.md`.
+This project is a solution to the minimum time path planning problem for a small electric plane as described in the file [`problem_statement.md`](problem_statement.md).
 The plane has a limited range and can recharge at intermediate airports along its journey.
 The plane charges faster at some airports than at others.
 The plane leaves with a full charge.
@@ -19,7 +28,7 @@ Then run CMake and make:
     cmake .. && make -j4
 
 Running this command will create two executables: `flight_planner` and `flight_planner_test`.
-The instructions for running `flight_planner` are described in the `problem_statement.md`.
+The instructions for running `flight_planner` are described in the [`problem_statement.md`](problem_statement.md).
 You can run the unit test with the following command;
   
       ./flight_planner_test
@@ -86,11 +95,12 @@ This tradeoff is illustrated by the example below for the case where the maximum
 
 **Example:** The plane starts in city A with 1.00 battery and uses 0.63 battery to fly to city B. 
 
-| $n$ |        Range                  | True battery B | Discrete battery B | Error
-|-----|-------------------------------|----------------|--------------------|----------------------
+| $n$ |        Discrete levels         | Battery B </br> (true) | Battery B </br> (discrete) | Error |
+|:---:|:-----------------------------:|:--------------:|:------------------:|:-----:|
 |  6  | (0.00, 0.20, 0.40, ..., 1.00) | 0.37           |  0.20              | 0.17
 | 11  | (0.00, 0.10, 0.20, ..., 1.00) | 0.37           |  0.30              | 0.07
 | 21  | (0.00, 0.05, 0.10, ..., 1.00) | 0.37           |  0.35              | 0.02
+
 
 The table above shows how the discretization error tends to decrease as $n$ increases.
 The error appraoches zero as $n$ approaches infinity.
@@ -214,8 +224,8 @@ The exact graph size is fixed, and is comparable to an approximate graph when $8
 For the graph that uses a approximate of $n$ battery levels, the total time decreases as $n$ increases.
 The decreasing total times approach the total time of the exact solution.
 
-| Battery Levels | Vertex # | Edge #    | Total Time*|
-|----------------|----------|-----------|------------|
+| Graph          | Vertex # | Edge #    | Total Time*|
+|:--------------:|---------:|----------:|-----------:|
 | n = 8          |  2,424   | 19,328    | 68.8800    |
 | n = 32         |  9,696   | 77,212    | 67.1495    |
 | n = 128        | 38,784   | 309,080   | 66.3071    |
