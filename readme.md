@@ -1,14 +1,8 @@
-
 <div align="center">
-  <a href=https://ryanelandt.github.io/projects/cpp_path_planning/>
-    <strong>
-      <font color="#0000EE">
-        <pre>Click for interactive planner</pre>
-      </font>
-    </strong>
-  </a>
+  <strong>
+    <a href="https://ryanelandt.github.io/projects/cpp_path_planning/">[ *** Click for interactive planner *** ]</a>
+  </strong>
 </div>
-
 
 # Problem summary
 
