@@ -84,7 +84,7 @@ This readme describes how to find the optimal solution to this problem.
 <div align="center">
   <div style="border: 1px solid black; padding: 10px; display: inline-block;">
     <strong>
-      <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 18px;">Click for interactive planner</a>
+      <a href="https://ryanelandt.github.io/projects/cpp_path_planning/">Click for interactive planner</a>
     </strong>
   </div>
 </div>
@@ -105,18 +105,12 @@ This readme describes how to find the optimal solution to this problem.
 
 #
 
-<pre>
-</pre>
 
 <div align="center">
   <strong>
-    <a href="https://ryanelandt.github.io/projects/cpp_path_planning/">Click for interactive planner</a>
+    <a href="https://ryanelandt.github.io/projects/cpp_path_planning/">*** Click for interactive planner ***</a>
   </strong>
 </div>
-
-
-<pre>
-</pre>
 
 
 # Problem summary (E)
