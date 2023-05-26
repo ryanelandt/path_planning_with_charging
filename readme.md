@@ -23,71 +23,10 @@
   </div>
 </div>
 
-<div align="center">
-  <div style="border: 1px solid black; padding: 20px; display: inline-block;">
-    <strong>
-      <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 18px;">Click for interactive planner</a>
-    </strong>
-  </div>
-</div>
 
 
-<div align="center">
-  <div style="border: 1px solid black; padding: 20px; display: inline-block;">
-    <strong>
-      <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 24px;">Click for interactive planner</a>
-    </strong>
-  </div>
-</div>
-
-
-<div class="snippet-clipboard-content notranslate position-relative overflow-auto">
-  <!-- <a href=https://ryanelandt.github.io/projects/cpp_path_planning/>
-    <pre class="notranslate">Text here</pre>
-  </a> -->
-</div>
-
-  [Click for interactive planner](https://ryanelandt.github.io/projects/cpp_path_planning/)
-
-
-| [Click for interactive planner](https://ryanelandt.github.io/projects/cpp_path_planning/) |
-|-------------------------------------------------------------------------------------------|
-|  ouu|
-
-# [**Click for interactive planner**](https://ryanelandt.github.io/projects/cpp_path_planning/)
-
-## [**Click for interactive planner**](https://ryanelandt.github.io/projects/cpp_path_planning/)
-
-### [**Click for interactive planner**](https://ryanelandt.github.io/projects/cpp_path_planning/)
-
-
-
-> **Note**
-> This is a note
-
-> **Note** [Click for interactive planner](https://ryanelandt.github.io/projects/cpp_path_planning/)
-
-
-> **Warning**
-> This is a warning
-
-> **Custom text**
-> This is custom text
-
-    [Click for interactive planner](https://ryanelandt.github.io/projects/cpp_path_planning/) 
-
-    <html>
-      <head>
-      </head>
-    </html>
-
-
-
-<div align="center">
-  <strong>
-    <a href="https://ryanelandt.github.io/projects/cpp_path_planning/" style="font-size: 24px;">Click for interactive planner</a>
-  </strong>
-</div>
+<pre>
+</pre>
 
 <div align="center">
   <strong>
@@ -95,6 +34,9 @@
   </strong>
 </div>
 
+
+<pre>
+</pre>
 
 
 # Problem summary
