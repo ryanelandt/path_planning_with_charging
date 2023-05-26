@@ -2,7 +2,9 @@
 <div align="center">
   <a href=https://ryanelandt.github.io/projects/cpp_path_planning/>
     <strong>
-      <pre>Click for interactive planner</pre>
+      <font color="#0000EE">
+        <pre>Click for interactive planner</pre>
+      </font>
     </strong>
   </a>
 </div>
