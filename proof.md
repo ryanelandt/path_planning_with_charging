@@ -18,37 +18,36 @@ A proof of this is given below.
 # Proof
 
 ## Part 1. 
-**Minimizing the charging time for a fixed path is a linear programming problem.**
+**Minimizing the charging time for a fixed city sequence is a linear programming (LP) problem.**
 
+For a fixed city sequence, the plane leaves city 0 with a full battery and visits cities $1, 2, ..., n$ before arriving in city $n + 1$.
+To formulate this LP, I define the quantities below.
+- $x_i^-$:$~~~~$ plane's charge arriving in city $i$
+- $x_i^+$:$~~~~$ plane's charge departing city $i$
+- $t_{~i}^{~i+1}$:  $~$ flight time from city $i$ to city $i + 1$
+- $R_i$: $~~~~$ the charging rate in city $i$
 
-For a fixed path, the plane leaves city 0 with a full battery and visits cities $1, 2, ..., n$ before arriving in city $n + 1$.
-For this problem, I use the following notation:
-- $x_i^-$: The plane's charge when it arrives in city $i$
-- $x_i^+$: The plane's charge when it departs city $i$
-- $d_{~i}^{~i+1}$: The charge required to get from city $i$ to $i + 1$
-- $R_i$: The charging rate in city $i$
-
-The goal of this problem is to minimize the total time spent charging as shows below:
+The goal for this problem is to minimize the total time spent charging.
 
 $~~\min$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
-The plane leaves city $i$ with charge $x_i^+$ and arrives in city $i + 1$ with charge $x_i^-$.
-A charge of $d_{~i}^{~i+1}$ is required to get from city $i$ to city $i + 1$.
-The plane leaves cities $0$ through $n$, therefore the following equality constraints below apply.
+The plane leaves city $i$ with charge $x_i^+$ and arrives in city $i + 1$ with charge $x_{i+1}^-$.
+The time required to fly from city $i$ to city $i + 1$ is $t_{~i}^{~i+1}$.
+The plane leaves cities $0$ through $n$, therefore the equality constraints below must apply.
 
-$~~d_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-$ for all $i = 0, 1, ..., n$
+$~~t_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-$ for all $i = 0, 1, ..., n$
 
 The plane charges at cities $1$ through $n$.
-At each city, the plane's charge must satisfy three inequality constraints.
+At each of these cities, the plane's charge must satisfy three inequality constraints.
 These constraints say that the plane:
-1. Can't leave with more than the maximum charge
-2. Can't arrive in the next city with negative charge
-3. Can't charge for negative time
+1. can't leave with more than the maximum charge,
+2. can't arrive in the next city with negative charge, and
+3. can't charge for negative time.
 
-Mathematically, these constraints become:
-1. $~~x_i^+ ≤ 1$ for all $i = 1, 2, ..., n$
-2. $~~0 ≤ x_i^+ - d_{~i}^{~i+1}$ for all $i = 1, 2, ..., n$
-3. $~~x_i^- ≤ x_i^+$ for all $i = 1, 2, ..., n$
+Mathematically, these constraints are:
+1. $~~x_i^+ ≤ t_{max}~~~~~~~~~$ for all $i = 1, 2, ..., n$
+2. $~~0 ≤ x_i^+ - t_{~i}^{~i+1}~~$ for all $i = 1, 2, ..., n$
+3. $~~x_i^- ≤ x_i^+~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
 
 The problem is therefore structured as follows:
 
@@ -58,70 +57,92 @@ $~~~~~~\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
 **Subject to:**
 
-$~~~~~~d_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-$ for all $i = 0, 1, ..., n$
+$~~~~~~t_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-~$ for all $i = 0, 1, ..., n$
 
-(1) $~~x_i^+ ≤ 1$ for all $i = 1, 2, ..., n$
+(1) $~~x_i^+ ≤ t_{max}~~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
 
-(2) $~~0 ≤ x_i^+ - d_{~i}^{~i+1}$ for all $i = 1, 2, ..., n$
+(2) $~~0 ≤ x_i^+ - t_{~i}^{~i+1}~~~~~~$ for all $i = 1, 2, ..., n$
 
-(3) $~~x_i^- ≤ x_i^+$ for all $i = 1, 2, ..., n$
+(3) $~~x_i^- ≤ x_i^+~~~~~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
 
-#
+This problem has a linear objective function. 
+It has linear equality constraints and linear inequality constraints.
+The problem is therefore a linear programming (LP) problem.
+
 
 ## Part 2.
 
-**This problem is feasible and bounded linear programming problem (LP).**
+**This LP is both feasible and bounded under reasonable assumptions.**
 
-
-The problem above is a linear programming problem (LP) because the objective function and constraints are both linear.
-The problem is always feasible because the plane's fixed path is made up of flights that are less than or equal to the maximum flight time.
-The objective function is always bounded because the plane can only take on charge values between $0$ and $1$.
-The problem is therefore a feasible and bounded LP.
+This LP is feasible assuming that the plane's fixed path is made up of flights that are less than or equal to the maximum flight time.
+At all times, the plane's charge must be between $0$ and the maximum charge $t_{max}$.
+These constraints are enforced by the inequality constraints (1), (2), and (3).
+Bounded charge values result in a bounded objective function.
+This LP is therefore both feasible and bounded.
 
 
 ## Part 3.
 
-**Feasible and bounded linear programming problems (LPs) have optimal solutions that lie on constraint boundaries.**
+**Feasible and bounded LP problems have optimal solutions that lie on constraint boundaries.**
 
-The objective functions for LPs contain a constant vector $\bold{c}$ and a variable vector $\bold{x}$.
-The goal is to minimize $\bold{c}^T \bold{x}$.
+The objective function for LPs take the form $\min \bold{c}^T \bold{x}$, where $\bold{c}$ is a constant vector and $\bold{x}$ is a variable vector.
 Each element of $\bold{c}$ gets multiplied by a corresponding element of $\bold{x}$.
-If for example, an element of $\bold{c}$ is negative, then making the corresponding element of $\bold{x}$ larger will decrease the objective function.
-Making the value of this element $\infty$ will make the objective function $-\infty$.
-In bounded LPs this is not possible, each element of $\bold{x}$ must be bounded by at least one constraint.
-Feasible and bounded linear programming problems (LPs) have optimal solutions that lie on constraint boundaries.
+The constraints describe a convex feasible region in which the elements of $\bold{x}$ must lie.
+If one finds a good solution to this problem that lies inside the feasible region, then scaling this solution until it touches the boundary of the feasible region will make the solution even better.
+This is a property of linear objective functions and convex feasible regions.
+It follows that feasible and bounded linear programming problems (LPs) have optimal solutions that lie on constraint boundaries.
 
 
 ## Part 4.
 
-**Minimizing charging time for a fixed city sequence requires that at each city the plane must do one of the following: 1. leave with a full battery, 2. arrive in the next city with a zero battery, 3. charge for zero time.**
+**Minimizing charging time for a fixed city sequence requires the plane do one of the following at each city: 1. leave with a full battery, 2. arrive in the next city with a zero battery, 3. charge for zero time.**
 
 As discussed earlier, the plane charges at cities $1$ through $n$.
-At each city, the planes charging is constrained by inequality constraints.
-These constraints say that the plane:
-1. Can't leave with more than the maximum charge
-2. Can't arrive in the next city with negative charge
-3. Can't charge for negative time
+Inequality constraints at each city say that the plane:
+1. can't leave with more than the maximum charge,
+2. can't arrive in the next city with negative charge, and
+3. can't charge for negative time.
 
 Because this problem is a feasible and bounded LP, the optimal solution must lie on one of these constraint boundaries.
-Lying on a constraint boundary means that one of the inequality constraints is satisfied as an equality constraint.
-When each of the three constraints above is satisfied as an equality constraint, the plane:
-1. Leaves with a full battery
-2. Arrives in the next city with a zero battery
-3. Charges for zero time
+When the solution lies on a constraint boundary, the constraint is satisfied as an equality constraint.
+For this problem, lying on a constraint boundary means that at each city the plane does one of the following:
+1. leaves with a full battery, 
+2. arrives in the next city with a zero battery, or 
+3. charges for zero time.
 
 
 ## Part 5. 
 
-**The optimal city sequence will never charge for zero time.**
+**City sequences are suboptimal if minimizing charging time means charging for zero time.**
 
-A city sequence cannot be optimal if it contains a city where the plane charges for zero time.
-The plane could skip this city and fly directly to the next city instead.
-This direct flight would be faster because the distances between cities obeys the triangle inequality.
-The optimal city sequence will never contain a city where the plane charges for zero time.
+Distances between cities in this problem obey the triangle inequality.
+It's always faster to fly directly from one city to another than it is to stop somewhere else first.
+If the plane charges for zero time, then it's faster to skip this city and fly directly to the next city instead.
+The only reason to stop in a city is to charge the plane.
+City sequences are suboptimal if minimizing charging time means charging for zero time.
 
-The optimal city sequence, still needs to have one equality constraint active at each city.
-It follows that the plane must either:
-1. Leave with a full battery or
-2. Arrive in the next city with a zero battery.
+## Part 6.
+**Putting it all together**
 
+To minimize the total time, one obstenibly needs to optimize over all possible city sequences and all possible charge times.
+But because of the triangle inequality argument above, this isn't actually necessary.
+The only city sequences that we need to optimize over are the ones that are potentially optimal.
+City sequences that result in the plane charging for zero time cannot be optimal, so we don't need to even consider them.
+But, minimizing the charge time still requires an active inequality constraint at each city.
+So without the zero charge time constraint active, the plane must do one of the following at each city:
+1. leave with a full battery, or
+2. arrive in the next city with a zero battery.
+
+This result can be used to construct a graph that is gauranteed to find the optimal solution using the following algorithm.
+For each City $i$ and City $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
+
+- (City $i$, $t_{max}$) --> (City $j$, $t_{max}$ - $t_{ij}$)  $~~$ **(Leave $i$ with full battery)**
+
+- (City $i$, $t_{ij}$) --> (City $j$, 0)        $~~~~~~~~~~~~~~~~~$ **(Arrive in $j$ with zero battery)**
+
+This graph contains all possible ways to leave a city with a full battery and all possible ways to arrive in a city with a zero battery.
+It therefore contains all the transitions necessary for the minimum charging time path for every possible potentially optimal city sequence.
+One of these paths is the optimal solution.
+Performing a shortest path search on this graph will find which one.
+
+QED
