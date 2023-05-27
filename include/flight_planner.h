@@ -14,18 +14,25 @@
 #include <utility>
 #include <vector>
 
-
 #include "./airports.h"
 #include "./graph_directed.h"
 
 
 /// Represents the ID of a city in the airport list
+///
+/// The purpose of this class is type checking. If this functionality was needed in a
+/// larger project, it would be better to use a library like boost::strong_typedef.
 class IdCity {
  public:
   explicit IdCity(int id = -1) : id_(id) {}
 
+  /// Returns true if the two IdCity objects are equal
   bool operator==(const IdCity& other) const { return id_ == other.id_; }
+
+  /// Returns true if the two IdCity objects are not equal
   bool operator!=(const IdCity& other) const { return !(*this == other); }
+
+  /// Returns true if the current IdCity object is less than the other
   bool operator<(const IdCity& other) const { return id_ < other.id_; }
 
   /// Returns the id of the city
@@ -52,10 +59,18 @@ class StateAircraft {
     return other.battery_level_hours_ - battery_level_hours_;
   }
 
+  /// Checks if two StateAircraft objects are equal. Two StateAircraft objects are equal if
+  /// they have the same id_city_ and battery_level_hours_.
   bool operator==(const StateAircraft& other) const {
     return id_city_ == other.id_city_ && battery_level_hours_ == other.battery_level_hours_;
   }
+
+  /// Checks if two StateAircraft objects are not equal.
   bool operator!=(const StateAircraft& other) const { return !(*this == other); }
+  
+  /// Checks if the current StateAircraft object is less than the other. The ordering is:
+  ///  1. IdCity
+  ///  2. BatteryLevel
   bool operator<(const StateAircraft& other) const {
     if (id_city_ != other.id_city_) {
       return id_city_ < other.id_city_;
@@ -108,11 +123,15 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
     return CalcDistKm(src, dst) / SpeedKmPerHr();
   }
 
+  /// Returns the minimum allowed battery capacity the aircraft is allowed to
+  /// have in hours. This is 0.0.
   static constexpr double MinBatteryHours() { return 0.0; }
 
   /// Returns the maximum battery flytime in hours. The maximum flytime is the
   /// maximum flight distance 320km divided by the speed of the aircraft.
   static constexpr double MaxBatteryHours() { return 320.0 / SpeedKmPerHr(); }
+
+  /// Returns the speed of the aircraft in km/hr
   static constexpr double MaxFlightTimeHours() { return MaxBatteryHours() - MinBatteryHours(); }
 
  private:
@@ -122,7 +141,10 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   // Gets the IdCity from the name of the city
   IdCity GetIdCity(const std::string& name) const;
 
+  // Prints out the city name
   void PrintCity(const IdCity& id_city) const { std::cout << GetAirport(id_city).name; }
+
+  // Prints out the city name
   void PrintCity(const StateAircraft& state) const { PrintCity(state.id_city()); }
 
   // Prints out the path
@@ -134,7 +156,7 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   // Returns the latitude and longitude of the city in radians
   std::pair<double, double> GetLatLonRadians(const IdCity& id_city) const;
 
-  // Calculates the distance between two cities in km
+  // Calculates the distance in km between a `src` city and a `dst` city
   double CalcDistKm(const IdCity& src, const IdCity& dst) const;
 
   // Calculates the charge time between two states in hours
@@ -143,8 +165,11 @@ class FlightPlannerBase : public GraphDirected<StateAircraft> {
   // Calculates the charge rate at a city in km/hr
   double CalcChargeRateKmPerHr(const IdCity& id_city) const { return GetAirport(id_city).rate; }
 
-  static constexpr double RadEarth() { return 6356.752; }  // Radius of Earth in km
-  static constexpr double SpeedKmPerHr() { return 105.0; }  // Speed of aircraft in km/hr from the problem statement
+  // Radius of the earth in km from the problem statement
+  static constexpr double RadEarth() { return 6356.752; }  // 6356.752 km
+
+  // Speed of aircraft in km/hr from the problem statement
+  static constexpr double SpeedKmPerHr() { return 105.0; }  // 105.0 km/hr
 
   const std::array<row, 303> airports_;  // List of airports copied from the non-constant global in airports.h
 };
@@ -167,6 +192,10 @@ class FlightPlannerExact : public FlightPlannerBase {
 
 /// Represents the possible routes for the battery powered aircraft created with the grid
 /// approach described in the readme.
+///
+/// This approach is approximate and will produce longer flight times than the exact approach.
+/// This approach was coded to generate content for the "Exact graph vs approximate graph comparison"
+/// section of the readme. 
 class FlightPlannerGrid : public FlightPlannerBase {
  public:
   FlightPlannerGrid(const std::array<row, 303>& airports, int n_levels) : FlightPlannerBase(airports),
