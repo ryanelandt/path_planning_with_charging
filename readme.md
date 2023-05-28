@@ -113,9 +113,9 @@ The plane's flight time on a full battery is $t_{max}$.
 The flight time from city $i$ to city $j$ is $t_{ij}$.
 For each city $i$ and city $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
 
-- (city $i$, $t_{max}$) --> (city $j$, $t_{max}$ - $t_{ij}$)  $~~$ **(Leave $i$ with full battery)**
+$\hspace{0.7cm}$ (city $i$, $t_{max}$) $\rightarrow$ (city $j$, $t_{max}$ - $t_{ij}$)  $ \hspace{0.2cm} $ **(Leave $i$ with full battery)**
 
-- (city $i$, $t_{ij}$) --> (city $j$, $0$)        $~~~~~~~~~~~~~~~~~$ **(Arrive in $j$ with zero battery)**
+$\hspace{1.05cm}$ (city $i$, $t_{ij}$) $ \rightarrow$ (city $j$, $0$)        $ \hspace{1.2cm} $ **(Arrive in $j$ with zero battery)**
 
 For a graph constructed with this approach, the minimum time path found with a shortest path algorithm is the optimal solution.
 The proof for this result can be found in the "Proof of Optimality" section below.
@@ -167,20 +167,20 @@ This proof has six parts.
 
 For a fixed city sequence, the plane leaves city 0 with a full battery and visits cities $1, 2, ..., n$ before arriving in city $n + 1$.
 To formulate this LP, I define the quantities below.
-- $x_i^-$: $~ ~ ~ ~$ plane's charge arriving in city $i$
-- $x_i^+$: $~ ~ ~ ~$ plane's charge departing city $i$
-- $t_{ ~ i}^{ ~ i+1}$:  $~$ flight time from city $i$ to city $i + 1$
-- $R_i$: $~~~~$ the charging rate in city $i$
+- $x_i^-$: $ \hspace{0.35cm}$ plane's charge arriving in city $i$
+- $x_i^+$: $ \hspace{0.35cm}$ plane's charge departing city $i$
+- $t_{ ~ i}^{ ~ i+1}$:  $ \hspace{0.20cm}$ flight time from city $i$ to city $i + 1$
+- $R_i$: $ \hspace{0.45cm}$ the charging rate in city $i$
 
 The goal for this problem is to minimize the total time spent charging.
 
-$ ~ ~ \min$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
+$  \hspace{0.6cm} \min$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
 The plane leaves city $i$ with charge $x_i^+$ and arrives in city $i + 1$ with charge $x_{i+1}^-$.
 The time required to fly from city $i$ to city $i + 1$ is $t_{~i}^{~i+1}$.
 The plane leaves cities $0$ through $n$, therefore the equality constraints below must apply.
 
-$~~t_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-$ for all $i = 0, 1, ..., n$
+$ \hspace{0.6cm} t_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-$ for all $i = 0, 1, ..., n$
 
 The plane charges at cities $1$ through $n$.
 At each of these cities, the plane's charge must satisfy three inequality constraints.
@@ -190,25 +190,25 @@ These constraints say that the plane:
 3. can't charge for negative time.
 
 Mathematically, these constraints are:
-1. $ \hspace{0.2cm} x_i^+ ≤ t_{max}~~~~~~~~~$ for all $i = 1, 2, ..., n$
-2. $ \hspace{0.2cm} 0 ≤ x_i^+ - t_{~i}^{~i+1}$ $~~$ for all $i = 1, 2, ..., n$
-3. $ \hspace{0.2cm} x_i^- ≤ x_i^+~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
+1. $ \hspace{0.2cm} x_i^+ ≤ t_{max} \hspace{0.75cm} $ for all $i = 1, 2, ..., n$
+2. $ \hspace{0.2cm} 0 ≤ x_i^+ - t_{~i}^{~i+1} \hspace{0.2cm} $ for all $i = 1, 2, ..., n$
+3. $ \hspace{0.2cm} x_i^- ≤ x_i^{+} \hspace{1.0cm}$ for all $i = 1, 2, ..., n$
 
 The problem is therefore structured as follows:
 
 **Minimize:**
 
-$~~~~~~$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
+$ \hspace{0.6cm} \sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
 **Subject to:**
 
-$ ~ ~ ~ ~ ~ ~ $ $t_{ ~ i}^{ ~ i+1} = x_{i}^+ - x_{i+1}^{-} ~ $ for all $i = 0, 1, ..., n$
+$ \hspace{0.6cm} t_{ ~ i}^{ ~ i+1} = x_{i}^+ - x_{i+1}^{-} \hspace{0.1cm} $ for all $i = 0, 1, ..., n$
 
-(1) $ ~ ~ x_i^+ ≤ t_{max}~~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
+(1) $ \hspace{0.2cm} x_i^+ ≤ t_{max} \hspace{1.1cm}$ for all $i = 1, 2, ..., n$
 
-(2) $ ~ ~ 0 ≤ x_i^+ - t_{~i}^{~i+1}~~~~~~$ for all $i = 1, 2, ..., n$
+(2) $ \hspace{0.2cm} 0 ≤ x_i^+ - t_{~i}^{~i+1} \hspace{0.5cm} $ for all $i = 1, 2, ..., n$
 
-(3) $ ~ ~ x_i^- ≤ x_i^+~~~~~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
+(3) $ \hspace{0.2cm} x_i^- ≤ x_i^{+} \hspace{1.3cm} $ for all $i = 1, 2, ..., n$
 
 This problem has a linear objective function. 
 It has linear equality constraints and linear inequality constraints.
@@ -287,14 +287,14 @@ So without the zero charge time constraint active, the plane must do one of the 
 This result can be used to construct a graph that is gauranteed to find the optimal solution using the following algorithm.
 For each city $i$ and city $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
 
-- (city $i$, $t_{max}$) --> (city $j$, $t_{max}$ - $t_{ij}$)  $~~$ **(Leave $i$ with full battery)**
+$\hspace{0.7cm}$ (city $i$, $t_{max}$) $\rightarrow$ (city $j$, $t_{max}$ - $t_{ij}$)  $ \hspace{0.2cm} $ **(Leave $i$ with full battery)**
 
-- (city $i$, $t_{ij}$) --> (city $j$, $0$)        $~~~~~~~~~~~~~~~~~$ **(Arrive in $j$ with zero battery)**
+$\hspace{1.05cm}$ (city $i$, $t_{ij}$) $ \rightarrow$ (city $j$, $0$)        $ \hspace{1.2cm} $ **(Arrive in $j$ with zero battery)**
 
 This graph contains all possible ways to leave a city with a full battery and all possible ways to arrive in a city with a zero battery.
 It therefore contains all the transitions necessary for the minimum charging time paths for every possible potentially optimal city sequence.
 One of these paths is the optimal solution.
-A shortest path search on this graph will find out which one it is. $~~\Box$
+A shortest path search on this graph will find out which one it is. $ \hspace{0.15cm} \Box$
 
 
 
