@@ -71,7 +71,7 @@ This term relates increases in battery level to time spent charging.
 
 The time required to charge from battery level $u^-$ to battery level $u^+$ is as follows:
 
-    charge_time = (battery_u^+ - battery_u) / R.
+    charge_time = (battery_u^+ - battery_u^-) / R.
 
 
 **Shortest paths.**
@@ -113,9 +113,40 @@ The plane's flight time on a full battery is $t_{max}$.
 The flight time from city $i$ to city $j$ is $t_{ij}$.
 For each city $i$ and city $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
 
-$\hspace{0.7cm}$ (city $i$, $t_{max}$) $\rightarrow$ (city $j$, $t_{max}$ - $t_{ij}$)  $ \hspace{0.2cm} $ **(Leave $i$ with full battery)**
 
-$\hspace{1.05cm}$ (city $i$, $t_{ij}$) $ \rightarrow$ (city $j$, $0$)        $ \hspace{1.2cm} $ **(Arrive in $j$ with zero battery)**
+&nbsp; nbsp
+
+&thinsp; thinsp
+
+&ensp; ensp
+
+&emsp; emsp
+
+#
+
+
+
+&emsp;
+&emsp;
+&emsp;
+(city $i$, $t_{max}$)
+--> 
+(city $j$, $t_{max}$ - $t_{ij}$)
+&emsp;
+**(Leave $i$ with full battery)**
+
+
+&emsp;
+&emsp;
+&emsp;
+&emsp;
+(city $i$, $t_{ij}$)
+--> 
+(city $j$, $0$)
+&emsp;
+&emsp;
+&emsp;
+**(Arrive in $j$ with zero battery)**
 
 For a graph constructed with this approach, the minimum time path found with a shortest path algorithm is the optimal solution.
 The proof for this result can be found in the "Proof of Optimality" section below.
