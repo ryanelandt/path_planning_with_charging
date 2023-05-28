@@ -205,7 +205,7 @@ the charging rate in city $i$
 
 The goal for this problem is to minimize the total time spent charging.
 
-$  \hspace{0.6cm} \min$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
+&ensp; &ensp; &ensp; $\min$ $\sum^n_{i=1} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
 The plane leaves city $i$ with charge $x_i^+$ and arrives in city $i + 1$ with charge $x_{i+1}^-$.
 The time required to fly from city $i$ to city $i + 1$ is $t_{~i}^{~i+1}$.
@@ -236,17 +236,23 @@ The problem is therefore structured as follows:
 
 **Minimize:**
 
-&ensp; &ensp; &ensp; $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
+&ensp; &ensp; &ensp; $\sum^n_{i=1} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
 **Subject to:**
 
-&ensp; &ensp; &ensp; $t_{ ~ i}^{ ~ i+1} = x_{i}^+ - x_{i+1}^{-} \hspace{0.1cm} $ for all $i = 0, 1, ..., n$
+&ensp; &ensp; &ensp; $t_{ ~ i}^{ ~ i+1} = x_{i}^+ - x_{i+1}^{-}$ &nbsp; for all $i = 0, 1, ..., n$
 
-(1) &ensp; $x_i^+ ≤ t_{max} \hspace{1.1cm}$ for all $i = 1, 2, ..., n$
+(1) &ensp; $x_i^+ ≤ t_{max} $
+&emsp; &ensp; &ensp; &ensp; &nbsp;
+for all $i = 1, 2, ..., n$
 
-(2) &ensp; $0 ≤ x_i^+ - t_{~i}^{~i+1} \hspace{0.5cm} $ for all $i = 1, 2, ..., n$
+(2) &ensp; $0 ≤ x_i^+ - t_{~i}^{~i+1}$
+&emsp; &ensp; 
+for all $i = 1, 2, ..., n$
 
-(3) &ensp; $x_i^- ≤ x_i^{+} \hspace{1.3cm} $ for all $i = 1, 2, ..., n$
+(3) &ensp; $x_i^- ≤ x_i^{+}$
+&emsp; &ensp; &ensp; &ensp; &ensp; &ensp;
+for all $i = 1, 2, ..., n$
 
 
 This problem has a linear objective function. 
@@ -356,7 +362,7 @@ For each city $i$ and city $j$, if $t_{ij} ≤ t_{max}$, add the following edges
 This graph contains all possible ways to leave a city with a full battery and all possible ways to arrive in a city with a zero battery.
 It therefore contains all the transitions necessary for the minimum charging time paths for every possible potentially optimal city sequence.
 One of these paths is the optimal solution.
-A shortest path search on this graph will find out which one it is. $ \hspace{0.15cm} \Box$
+A shortest path search on this graph will find out which one it is. &emsp; $\Box$
 
 
 
