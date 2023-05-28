@@ -222,6 +222,12 @@ The plane leaves cities $0$ through $n$, therefore the equality constraints belo
 &emsp; &ensp;
 $ t_{ i }^{ i+1 } = x_{ i }^+ - x_{ i+1 }^-$ for all $i = 0, 1, ..., n$
 
+$t_{ i }^{ i+1 } = x_{ i }^+ - x_{ i+1 }^-$ for all $i = 0, 1, ..., n$
+
+
+(2) &ensp; $0 ≤ x_i^+ - t_{i}^{i+1}$
+
+
 
 The plane charges at cities $1$ through $n$.
 At each of these cities, the plane's charge must satisfy three inequality constraints.
