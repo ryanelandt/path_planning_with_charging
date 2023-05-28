@@ -178,9 +178,7 @@ The table below illustrates this convergence.
 
 # Proof of optimality
 
-This proof has six parts.
-
-
+This proof has six parts. &nbsp; &thinsp; &ensp; &emsp;
 
 ## Part 1. 
 **Minimizing the charging time for a fixed city sequence is a linear programming (LP) problem.**
@@ -190,15 +188,6 @@ To formulate this LP, I define the quantities below.
 
 
 
-&nbsp; nbsp
-
-&thinsp; thinsp
-
-&ensp; ensp
-
-&emsp; emsp
-
-#
 
 - $x_i^-$: 
 &emsp; &ensp; 
@@ -214,14 +203,6 @@ flight time from city $i$ to city $i + 1$
 the charging rate in city $i$
 
 
-
-
-aoeu
-- $x_i^-$: $ \hspace{0.35cm}$ plane's charge arriving in city $i$
-- $x_i^+$: $ \hspace{0.35cm}$ plane's charge departing city $i$
-- $t_{ ~ i}^{ ~ i+1}$:  $ \hspace{0.20cm}$ flight time from city $i$ to city $i + 1$
-- $R_i$: $ \hspace{0.45cm}$ the charging rate in city $i$
-
 The goal for this problem is to minimize the total time spent charging.
 
 $  \hspace{0.6cm} \min$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
@@ -230,7 +211,11 @@ The plane leaves city $i$ with charge $x_i^+$ and arrives in city $i + 1$ with c
 The time required to fly from city $i$ to city $i + 1$ is $t_{~i}^{~i+1}$.
 The plane leaves cities $0$ through $n$, therefore the equality constraints below must apply.
 
-$ \hspace{0.6cm} t_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-$ for all $i = 0, 1, ..., n$
+
+
+&emsp; &ensp;
+$ t_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-$ for all $i = 0, 1, ..., n$
+
 
 The plane charges at cities $1$ through $n$.
 At each of these cities, the plane's charge must satisfy three inequality constraints.
@@ -239,26 +224,30 @@ These constraints say that the plane:
 2. can't arrive in the next city with negative charge, and
 3. can't charge for negative time.
 
+
 Mathematically, these constraints are:
-1. $ \hspace{0.2cm} x_i^+ ≤ t_{max} \hspace{0.75cm} $ for all $i = 1, 2, ..., n$
-2. $ \hspace{0.2cm} 0 ≤ x_i^+ - t_{~i}^{~i+1} \hspace{0.2cm} $ for all $i = 1, 2, ..., n$
-3. $ \hspace{0.2cm} x_i^- ≤ x_i^{+} \hspace{1.0cm}$ for all $i = 1, 2, ..., n$
+1. &ensp; $x_i^+ ≤ t_{max}$ &emsp; &nbsp; &nbsp; &nbsp; for all $i = 1, 2, ..., n$
+2. &ensp; $0 ≤ x_i^+ - t_{~i}^{~i+1}$ &ensp; for all $i = 1, 2, ..., n$
+3. &ensp; $x_i^- ≤ x_i^{+}$ &emsp;&emsp;&emsp;&nbsp; for all $i = 1, 2, ..., n$
 
 The problem is therefore structured as follows:
 
+
+
 **Minimize:**
 
-$ \hspace{0.6cm} \sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
+&ensp; &ensp; &ensp; $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
 **Subject to:**
 
-$ \hspace{0.6cm} t_{ ~ i}^{ ~ i+1} = x_{i}^+ - x_{i+1}^{-} \hspace{0.1cm} $ for all $i = 0, 1, ..., n$
+&ensp; &ensp; &ensp; $t_{ ~ i}^{ ~ i+1} = x_{i}^+ - x_{i+1}^{-} \hspace{0.1cm} $ for all $i = 0, 1, ..., n$
 
-(1) $ \hspace{0.2cm} x_i^+ ≤ t_{max} \hspace{1.1cm}$ for all $i = 1, 2, ..., n$
+(1) &ensp; $x_i^+ ≤ t_{max} \hspace{1.1cm}$ for all $i = 1, 2, ..., n$
 
-(2) $ \hspace{0.2cm} 0 ≤ x_i^+ - t_{~i}^{~i+1} \hspace{0.5cm} $ for all $i = 1, 2, ..., n$
+(2) &ensp; $0 ≤ x_i^+ - t_{~i}^{~i+1} \hspace{0.5cm} $ for all $i = 1, 2, ..., n$
 
-(3) $ \hspace{0.2cm} x_i^- ≤ x_i^{+} \hspace{1.3cm} $ for all $i = 1, 2, ..., n$
+(3) &ensp; $x_i^- ≤ x_i^{+} \hspace{1.3cm} $ for all $i = 1, 2, ..., n$
+
 
 This problem has a linear objective function. 
 It has linear equality constraints and linear inequality constraints.
@@ -337,9 +326,32 @@ So without the zero charge time constraint active, the plane must do one of the 
 This result can be used to construct a graph that is gauranteed to find the optimal solution using the following algorithm.
 For each city $i$ and city $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
 
-$\hspace{0.7cm}$ (city $i$, $t_{max}$) $\rightarrow$ (city $j$, $t_{max}$ - $t_{ij}$)  $ \hspace{0.2cm} $ **(Leave $i$ with full battery)**
 
-$\hspace{1.05cm}$ (city $i$, $t_{ij}$) $ \rightarrow$ (city $j$, $0$)        $ \hspace{1.2cm} $ **(Arrive in $j$ with zero battery)**
+
+
+&emsp;
+&emsp;
+&emsp;
+(city $i$, $t_{max}$)
+--> 
+(city $j$, $t_{max}$ - $t_{ij}$)
+&emsp;
+**(Leave $i$ with full battery)**
+
+
+&thinsp;
+&thinsp;
+&emsp;
+&emsp;
+&emsp;
+(city $i$, $t_{ij}$)
+--> 
+(city $j$, $0$)
+&emsp;
+&emsp;
+&emsp;
+**(Arrive in $j$ with zero battery)**
+
 
 This graph contains all possible ways to leave a city with a full battery and all possible ways to arrive in a city with a zero battery.
 It therefore contains all the transitions necessary for the minimum charging time paths for every possible potentially optimal city sequence.
