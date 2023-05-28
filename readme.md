@@ -207,8 +207,10 @@ The goal for this problem is to minimize the total time spent charging.
 
 &ensp; &ensp; &ensp;
 $\min$ $\sum_{i=1} {}^n \frac{1}{R_i} (x_i^+ - x_i^-)$
+
 $\min$ $\sum^n \frac{1}{R_i} (x_i^+ - x_i^-)$
-$\min$ $\sum \frac{1}{R_i} (x_i^+ - x_i^-)$
+
+$\min$ $\sum \frac{1}{R_i} (x_i^+ - x_i^-)$ for $i$ = $1, 2, ..., n$
 
 
 The plane leaves city $i$ with charge $x_i^+$ and arrives in city $i + 1$ with charge $x_{i+1}^-$.
@@ -218,7 +220,7 @@ The plane leaves cities $0$ through $n$, therefore the equality constraints belo
 
 
 &emsp; &ensp;
-$ t_{i}^{i+1} = x_{i}^+ - x_{i+1}^-$ for all $i = 0, 1, ..., n$
+$ t_{ i }^{ i+1 } = x_{ i }^+ - x_{ i+1 }^-$ for all $i = 0, 1, ..., n$
 
 
 The plane charges at cities $1$ through $n$.
