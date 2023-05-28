@@ -167,8 +167,8 @@ This proof has six parts.
 
 For a fixed city sequence, the plane leaves city 0 with a full battery and visits cities $1, 2, ..., n$ before arriving in city $n + 1$.
 To formulate this LP, I define the quantities below.
-- $x_i^-$:$~~~~$ plane's charge arriving in city $i$
-- $x_i^+$:$~~~~$ plane's charge departing city $i$
+- $x_i^-$:$~ ~ ~ ~$ plane's charge arriving in city $i$
+- $x_i^+$:$~ ~ ~ ~$ plane's charge departing city $i$
 - $t_{~i}^{~i+1}$:  $~$ flight time from city $i$ to city $i + 1$
 - $R_i$: $~~~~$ the charging rate in city $i$
 
