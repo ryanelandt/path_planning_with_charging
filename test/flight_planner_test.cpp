@@ -86,11 +86,12 @@ class FlightPathTester : public ::testing::Test {
     const std::string escape_city_name_2 = escapeCityName(cityPair.second);
 
     // TODO(ryanelandt): detect operating system and use the appropriate checker
-    std::string command = "../checker_linux \"$(./flight_planner " +
+    std::string command = "../problem_materials/checker_linux \"$(./flight_planner " +
                           escape_city_name_1 + " " + escape_city_name_2 + ")\"";
     return runTestCommand(command);
   }
 
+  // Helper function to execute the checker and capture its output
   std::string runTestCommand(const std::string& command) const {
     FILE* pipe = popen(command.c_str(), "r");
     if (!pipe) return "";
@@ -144,14 +145,30 @@ class FlightPathTester : public ::testing::Test {
     throw std::runtime_error("Could not find " + searchString + " in output");
   }
 
+  // Finds reference cost from the string. For example if the input is:
+  //
+  //    Reference result: Success, cost was 67.3259
+  //
+  // Then this function will return 67.3259. If the string is not found, then
+  // this function will throw an exception.
   double getReferenceCost(const std::string& output) const {
     return findNumberAfterString(output, reference_success_string());
   }
+
+  // Finds candidate cost from the string. For example if the input is:
+  //
+  //    Candidate result: Success, cost was 66.1095
+  //
+  // Then this function will return 66.1095. If the string is not found, then
+  // this function will throw an exception.
   double getCandidateCost(const std::string& output) const {
     return findNumberAfterString(output, candidate_success_string());
   }
 
+  // Returns the string that is printed when the reference solution is successful
   const std::string& reference_success_string() const { return reference_success_string_; }
+
+  // Returns the string that is printed when the candidate solution is successful
   const std::string& candidate_success_string() const { return candidate_success_string_; }
 
  private:
