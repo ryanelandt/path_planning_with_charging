@@ -114,18 +114,6 @@ The flight time from city $i$ to city $j$ is $t_{ij}$.
 For each city $i$ and city $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
 
 
-&nbsp; nbsp
-
-&thinsp; thinsp
-
-&ensp; ensp
-
-&emsp; emsp
-
-#
-
-
-
 &emsp;
 &emsp;
 &emsp;
@@ -136,7 +124,8 @@ For each city $i$ and city $j$, if $t_{ij} ≤ t_{max}$, add the following edges
 **(Leave $i$ with full battery)**
 
 
-&emsp;
+&thinsp;
+&thinsp;
 &emsp;
 &emsp;
 &emsp;
@@ -198,6 +187,36 @@ This proof has six parts.
 
 For a fixed city sequence, the plane leaves city 0 with a full battery and visits cities $1, 2, ..., n$ before arriving in city $n + 1$.
 To formulate this LP, I define the quantities below.
+
+
+
+&nbsp; nbsp
+
+&thinsp; thinsp
+
+&ensp; ensp
+
+&emsp; emsp
+
+#
+
+- $x_i^-$: 
+&emsp; &ensp; 
+plane's charge arriving in city $i$
+- $x_i^+$: 
+&emsp; &nbsp;&nbsp;
+plane's charge departing city $i$
+- $t_{ ~ i}^{ ~ i+1}$:
+&emsp;
+flight time from city $i$ to city $i + 1$
+- $R_i$: 
+&emsp; &nbsp; &nbsp;
+the charging rate in city $i$
+
+
+
+
+aoeu
 - $x_i^-$: $ \hspace{0.35cm}$ plane's charge arriving in city $i$
 - $x_i^+$: $ \hspace{0.35cm}$ plane's charge departing city $i$
 - $t_{ ~ i}^{ ~ i+1}$:  $ \hspace{0.20cm}$ flight time from city $i$ to city $i + 1$
