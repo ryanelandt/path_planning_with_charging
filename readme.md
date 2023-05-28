@@ -174,7 +174,7 @@ To formulate this LP, I define the quantities below.
 
 The goal for this problem is to minimize the total time spent charging.
 
-$~~\min$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
+$ ~ ~ \min$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
 The plane leaves city $i$ with charge $x_i^+$ and arrives in city $i + 1$ with charge $x_{i+1}^-$.
 The time required to fly from city $i$ to city $i + 1$ is $t_{~i}^{~i+1}$.
@@ -202,13 +202,13 @@ $~~~~~~$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
 **Subject to:**
 
-$~~~~~~$ $t_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-~$ for all $i = 0, 1, ..., n$
+$ ~ ~ ~ ~ ~ ~ $ $t_{ ~ i}^{ ~ i+1} = x_{i}^+ - x_{i+1}^{-} ~ $ for all $i = 0, 1, ..., n$
 
-(1) $~~x_i^+ ≤ t_{max}~~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
+(1) $ ~ ~ x_i^+ ≤ t_{max}~~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
 
-(2) $~~0 ≤ x_i^+ - t_{~i}^{~i+1}~~~~~~$ for all $i = 1, 2, ..., n$
+(2) $ ~ ~ 0 ≤ x_i^+ - t_{~i}^{~i+1}~~~~~~$ for all $i = 1, 2, ..., n$
 
-(3) $~~x_i^- ≤ x_i^+~~~~~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
+(3) $ ~ ~ x_i^- ≤ x_i^+~~~~~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
 
 This problem has a linear objective function. 
 It has linear equality constraints and linear inequality constraints.
@@ -230,9 +230,9 @@ This LP is therefore both feasible and bounded.
 
 **Feasible and bounded LP problems have optimal solutions that lie on constraint boundaries.**
 
-The objective function for LPs take the form $\min \bold{c}^T \bold{x}$, where $\bold{c}$ is a constant vector and $\bold{x}$ is a variable vector.
-Each element of $\bold{c}$ gets multiplied by a corresponding element of $\bold{x}$.
-The constraints describe a convex feasible region in which the elements of $\bold{x}$ must lie.
+The objective function for LPs take the form $\min \mathbf{c}^T \mathbf{x}$, where $\mathbf{c}$ is a constant vector and $\mathbf{x}$ is a variable vector.
+Each element of $\mathbf{c}$ gets multiplied by a corresponding element of $\mathbf{x}$.
+The constraints describe a convex feasible region in which the elements of $\mathbf{x}$ must lie.
 If one finds a good solution to this problem that lies inside the feasible region, then scaling this solution until it touches the boundary of the feasible region will make the solution even better.
 This is a property of linear objective functions and convex feasible regions.
 It follows that feasible and bounded linear programming problems (LPs) have optimal solutions that lie on constraint boundaries.
