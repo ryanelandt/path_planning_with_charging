@@ -190,9 +190,9 @@ These constraints say that the plane:
 3. can't charge for negative time.
 
 Mathematically, these constraints are:
-1. $~~x_i^+ ≤ t_{max}~~~~~~~~~$ for all $i = 1, 2, ..., n$
-2. $~~$ $0 ≤ x_i^+ - t_{~i}^{~i+1}$ $~~$ for all $i = 1, 2, ..., n$
-3. $~~x_i^- ≤ x_i^+~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
+1. $ \hspace{0.2cm} x_i^+ ≤ t_{max}~~~~~~~~~$ for all $i = 1, 2, ..., n$
+2. $ \hspace{0.2cm} 0 ≤ x_i^+ - t_{~i}^{~i+1}$ $~~$ for all $i = 1, 2, ..., n$
+3. $ \hspace{0.2cm} x_i^- ≤ x_i^+~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
 
 The problem is therefore structured as follows:
 
