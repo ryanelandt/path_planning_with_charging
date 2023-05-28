@@ -6,7 +6,7 @@
 
 # Problem summary
 
-This project is a solution to the minimum time path planning problem for a small electric plane as described in the file [`problem_statement.md`](problem_statement.md).
+This project is a solution to the minimum time path planning problem for a small electric plane as described in the file [`problem_statement.md`](problem_materials/problem_statement.md).
 The plane has a limited range and can recharge at intermediate airports along its journey.
 The plane charges faster at some city's airports than at others.
 The plane leaves with a full charge.
@@ -24,7 +24,7 @@ Then run CMake and make from the `build` directory:
     cmake .. && make -j4
 
 Running this command will create two executables: `flight_planner` and `flight_planner_test`.
-The instructions for running `flight_planner` are described in the [`problem_statement.md`](problem_statement.md).
+The instructions for running `flight_planner` are described in the [`problem_statement.md`](problem_materials/problem_statement.md).
 The unit test can be run with the following command:
   
     ./flight_planner_test
