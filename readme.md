@@ -178,7 +178,10 @@ The table below illustrates this convergence.
 
 # Proof of optimality
 
-This proof has six parts. &nbsp; &thinsp; &ensp; &emsp;
+This proof has six parts.
+The bolded text immediately below each part is the key idea for that part. 
+&nbsp; &thinsp; &ensp; &emsp;
+
 
 ## Part 1. 
 **Minimizing the charging time for a fixed city sequence is a linear programming (LP) problem.**
