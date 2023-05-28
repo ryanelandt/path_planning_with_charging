@@ -206,27 +206,17 @@ the charging rate in city $i$
 The goal for this problem is to minimize the total time spent charging.
 
 &ensp; &ensp; &ensp;
-$\min$ $\sum_{i=1} {}^n \frac{1}{R_i} (x_i^+ - x_i^-)$
-
-$\min$ $\sum^n \frac{1}{R_i} (x_i^+ - x_i^-)$
-
-$\min$ $\sum \frac{1}{R_i} (x_i^+ - x_i^-)$ for $i$ = $1, 2, ..., n$
+$\min$ $\sum \frac{1}{R_i} (x_i^+ - x_i^-)$
+&emsp;
+for $i$ = $1, 2, ..., n$
 
 
 The plane leaves city $i$ with charge $x_i^+$ and arrives in city $i + 1$ with charge $x_{i+1}^-$.
 The time required to fly from city $i$ to city $i + 1$ is $t_{i}^{i+1}$.
 The plane leaves cities $0$ through $n$, therefore the equality constraints below must apply.
 
-
-
 &emsp; &ensp;
-$ t_{ i }^{ i+1 } = x_{ i }^+ - x_{ i+1 }^-$ for all $i = 0, 1, ..., n$
-
 $t_{ i }^{ i+1 } = x_{ i }^+ - x_{ i+1 }^-$ for all $i = 0, 1, ..., n$
-
-
-(2) &ensp; $0 ≤ x_i^+ - t_{i}^{i+1}$
-
 
 
 The plane charges at cities $1$ through $n$.
@@ -239,7 +229,7 @@ These constraints say that the plane:
 
 Mathematically, these constraints are:
 1. &ensp; $x_i^+ ≤ t_{max}$ &emsp; &nbsp; &nbsp; &nbsp; for all $i = 1, 2, ..., n$
-2. &ensp; $0 ≤ x_i^+ - t_{i}^{i+1}$ &ensp; for all $i = 1, 2, ..., n$
+2. &ensp; $0 ≤ x_i^+ - t_{i}^{i+1}$ &nbsp; &nbsp; for all $i = 1, 2, ..., n$
 3. &ensp; $x_i^- ≤ x_i^{+}$ &emsp;&emsp;&emsp;&nbsp; for all $i = 1, 2, ..., n$
 
 The problem is therefore structured as follows:
@@ -248,7 +238,10 @@ The problem is therefore structured as follows:
 
 **Minimize:**
 
-&ensp; &ensp; &ensp; $\sum^n_{i=1} \frac{1}{R_i} (x_i^+ - x_i^-)$
+&ensp; &ensp; &ensp;
+$\sum \frac{1}{R_i} (x_i^+ - x_i^-)$
+&emsp;
+for $i$ = $1, 2, ..., n$
 
 **Subject to:**
 
@@ -259,7 +252,7 @@ The problem is therefore structured as follows:
 for all $i = 1, 2, ..., n$
 
 (2) &ensp; $0 ≤ x_i^+ - t_{i}^{i+1}$
-&emsp; &ensp; 
+&emsp; &ensp; &nbsp;
 for all $i = 1, 2, ..., n$
 
 (3) &ensp; $x_i^- ≤ x_i^{+}$
