@@ -191,18 +191,18 @@ These constraints say that the plane:
 
 Mathematically, these constraints are:
 1. $~~x_i^+ ≤ t_{max}~~~~~~~~~$ for all $i = 1, 2, ..., n$
-2. $~~0 ≤ x_i^+ - t_{~i}^{~i+1}~~$ for all $i = 1, 2, ..., n$
+2. $~~$ $0 ≤ x_i^+ - t_{~i}^{~i+1}$ $~~$ for all $i = 1, 2, ..., n$
 3. $~~x_i^- ≤ x_i^+~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
 
 The problem is therefore structured as follows:
 
 **Minimize:**
 
-$~~~~~~\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
+$~~~~~~$ $\sum_{i=1}^{n} \frac{1}{R_i} (x_i^+ - x_i^-)$
 
 **Subject to:**
 
-$~~~~~~t_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-~$ for all $i = 0, 1, ..., n$
+$~~~~~~$ $t_{~i}^{~i+1} = x_{i}^+ - x_{i+1}^-~$ for all $i = 0, 1, ..., n$
 
 (1) $~~x_i^+ ≤ t_{max}~~~~~~~~~~~~~$ for all $i = 1, 2, ..., n$
 
