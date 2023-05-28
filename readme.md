@@ -8,7 +8,7 @@
 
 This project is a solution to the minimum time path planning problem for a small electric plane as described in the file [`problem_statement.md`](problem_statement.md).
 The plane has a limited range and can recharge at intermediate airports along its journey.
-The plane charges faster at some airports than at others.
+The plane charges faster at some city's airports than at others.
 The plane leaves with a full charge.
 This readme describes how to find the optimal solution to this problem.
 
@@ -43,9 +43,9 @@ This minimum time path is found by performing a graph search over a directed gra
 
 A directed graph is made up of vertices and directed edges.
 For this problem, each vertex represents an allowed state of the plane.
-The plane's state consists of an airport and the amount of flight time the battery has remaining.
+The plane's state consists of city and the amount of flight time the battery has remaining.
 
-    state = (airport, battery_remaining)
+    state = (city, battery_remaining)
 
 Edges represent allowed transitions between states.
 For this problem, there are two types of state transitions: flying and charging.
@@ -57,14 +57,14 @@ For both edge types, the cost is the transition time.
 **Flying edges** describe transitions from one city to another.
 
     Flying
-      (airport_i, battery_remaining) --> (airport_j, battery_remaining - flight time)
+      (city_i, battery_remaining) --> (city_j, battery_remaining - flight time)
 
 **Charging edges** describe increases is battery level.
 
     Charging
-      (airport_i, battery_u) --> (airport_i, battery_u+)
+      (city_i, battery_u) --> (city_i, battery_u+)
 
-The charging time depends on $R$, the charging rate at each airport.
+The charging time depends on $R$, the charging rate at each city.
 This term relates increases in battery level to time spent charging.
   
     R = d(battery level) / d(charging time)
@@ -110,12 +110,12 @@ By constructing a graph that contains only these battery levels using the algori
 
 **Optimal graph construction algorithm:**
 The plane's flight time on a full battery is $t_{max}$.
-The flight time from City $i$ to City $j$ is $t_{ij}$.
-For each City $i$ and City $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
+The flight time from city $i$ to city $j$ is $t_{ij}$.
+For each city $i$ and city $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
 
-- (City $i$, $t_{max}$) --> (City $j$, $t_{max}$ - $t_{ij}$)  $~~$ **(Leave $i$ with full battery)**
+- (city $i$, $t_{max}$) --> (city $j$, $t_{max}$ - $t_{ij}$)  $~~$ **(Leave $i$ with full battery)**
 
-- (City $i$, $t_{ij}$) --> (City $j$, 0)        $~~~~~~~~~~~~~~~~~$ **(Arrive in $j$ with zero battery)**
+- (city $i$, $t_{ij}$) --> (city $j$, $0$)        $~~~~~~~~~~~~~~~~~$ **(Arrive in $j$ with zero battery)**
 
 For a graph constructed with this approach, the minimum time path found with a shortest path algorithm is the optimal solution.
 The proof for this result can be found in the "Proof of Optimality" section below.
@@ -285,11 +285,11 @@ So without the zero charge time constraint active, the plane must do one of the 
 2. arrive in the next city with a zero battery.
 
 This result can be used to construct a graph that is gauranteed to find the optimal solution using the following algorithm.
-For each City $i$ and City $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
+For each city $i$ and city $j$, if $t_{ij} ≤ t_{max}$, add the following edges and associated vertices to the graph:
 
-- (City $i$, $t_{max}$) --> (City $j$, $t_{max}$ - $t_{ij}$)  $~~$ **(Leave $i$ with full battery)**
+- (city $i$, $t_{max}$) --> (city $j$, $t_{max}$ - $t_{ij}$)  $~~$ **(Leave $i$ with full battery)**
 
-- (City $i$, $t_{ij}$) --> (City $j$, 0)        $~~~~~~~~~~~~~~~~~$ **(Arrive in $j$ with zero battery)**
+- (city $i$, $t_{ij}$) --> (city $j$, $0$)        $~~~~~~~~~~~~~~~~~$ **(Arrive in $j$ with zero battery)**
 
 This graph contains all possible ways to leave a city with a full battery and all possible ways to arrive in a city with a zero battery.
 It therefore contains all the transitions necessary for the minimum charging time paths for every possible potentially optimal city sequence.
