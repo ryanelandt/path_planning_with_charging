@@ -23,6 +23,23 @@ int main() {
   return 0;
 }
 
+extern "C" {
+  EMSCRIPTEN_KEEPALIVE
+  void getCityName(double* data, int* length, int i) {
+    // Get the name of the city
+    const string& name = airports[i].name;
+
+    // Write the name into data
+    for (size_t i = 0; i < name.size(); ++i) {
+      data[i] = name[i];
+    }
+
+    *length = name.size();
+
+    return;
+  }
+}
+
 // Writes the cartesian position of all airports into data
 extern "C" {
   EMSCRIPTEN_KEEPALIVE
